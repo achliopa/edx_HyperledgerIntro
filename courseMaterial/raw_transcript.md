@@ -111,4 +111,97 @@ There's also Proof of Elapsed Time, as well as Simplified Byzantine Fault Tolera
 Bitcoin uses Proof of Work, while Ethereum uses Proof of Work currently, but is moving towards Proof of Stake.
 The Hyperledger Sawtooth uses Proof of Elapsed Time.
 
-### Video 4 - 
+### Video 4 - Smart Contracts (Robert Schwentker)
+
+What is a smart contract?
+Back in 1996, a man named Nick Szabo coined the term 'smart contract'.
+You can think of them as computer protocols used to facilitate, verify, or enforce the negotiation of a legal contract.
+A smart contract is a phrase to describe computer code.
+Today, Ethereum smart contracts are designed to run on all nodes of the Ethereum network.
+Those smart contracts facilitate the exchange of value, including money, content, property, or shares between a fixed number of parties.
+
+### Section 2 - Bitcoin and Ethereum Blockchains
+
+### Video 5 - Bitcoin and Ethereum (Robert Schwentker)
+
+And so, why were Bitcoin and Ethereum created? What problems do they solve?
+So, Bitcoin was first launched in January of 2009, as a response to the global financial crisis at the time.
+Part of the motivation for the system was to be able to transfer value over the internet, without an intermediary.
+So, one of the biggest inventions and problems that it solved was that of the 'double spend' problem.
+So, Bitcoin, in fact, is programmable money.
+Ethereum, on the other hand, was created as a response to Bitcoin.
+While Bitcoin is focused upon transferring monetary value between parties, it has a very limited programming language.
+Ethereum, on the other hand, uses a more expansive set of programming languages and tools to allow for many other types of programs and applications.
+The core invention of Ethereum is it's EVM, or Ethereum Virtual Machine.
+The EVM runs on the Ethereum network, and it runs a Turing-complete software.
+So, Vitalik Buterin is the person who wrote the white paper for Ethereum.
+Some of its key features include the immutability of data, that unauthorized users cannot make changes to that data,
+the Ethereum development platform is designed to make corruption and tamper proof applications,
+the secure apps are sent decentralized and secured with cryptography,
+and they're protected against hacking attacks and fraudulent activities,
+and lastly, it's designed with zero downtime.
+That is because the applications on the network are decentralized, and on many, many machines,
+if some of those machines go down, the Ethereum network maintains a stable state of the Ethereum network.
+
+### Video 6 - Ethereum (Robert Schwentker)
+
+Can you give another example of a production blockchain system, such as Ethereum, and how is it different from Bitcoin?
+Sure. Ehereum also has a public blockchain. It also groups and orders transactions into blocks.
+However, Ethereum may be defined as an open source platform that enables  developers to build and deploy both smart contracts and decentralized applications, also known as Dapps.
+In addition to the Ethereum public blockchain, there are numerous versions of Ethereum which are designed to be private and are permissioned.
+
+## Section 3 - Exploring Permissionless Blockchains
+
+### Video 7 - Exploring Bitcoin and Ethereum Blockchains
+
+Let's take a look at a couple of public blockchains: those of Bitcoin and Ethereum,
+and let's examine the genesis block, or the first block, of each one of them.
+Then, we'll take a look at a couple of large transactions, including the most famous transaction in cryptocurrency history: the purchase of a pizza for 10,000 bitcoins.
+So, first, we'll go to this blockchain explorer, and see that there is a Height column, which indicates the number of blocks in this particular blockchain; it's nearing a half a million.
+These blocks are created approximately every 10 minutes,
+and there's a Transactions column that shows how many transactions are included in each block,
+as well as the Total Sent, or the amount of Bitcoin that was transferred in each of those blocks.
+Finally, you can notice that there's... they relate by column, which is essentially the miner or mining pool that created that block.
+So, from here, let's take a look at another blockchain explorer, and you can see here the genesis block of the Bitcoin blockchain.
+Notice that the timestamp is January 3rd 2009.
+So, that's the genesis block of the Bitcoin blockchain.
+Now, moving on to the Ethereum  blockchain, we'll look at another blockchain explorer.
+And this one shows you that there's approximately 5 million blocks in the Ethereum blockchain.
+Notice that each block is created much more quickly than in the Bitcoin blockchain.
+From here, we'll examine the genesis block of the Ethereum blockchain,
+and notice that it was mined about two years ago,
+and the mining reward for this was approximately five ether.
+So, from here, we'll take a look at the very interesting transaction: that of the pizza transaction.
+On Bitcoin Forum, there was somebody on May 18th of 2010 who was requesting that they would pay 10,000 bitcoins for a pizza.
+They provided their address and someone in fact sent them a pizza. In fact, it was from Europe.
+And you can see here that that was this transaction here: of 10,000 bitcoins.
+And lastly, a very large and interesting transaction of 658 bitcoins, done recently.
+Notice that the value of that is close to 3 million dollars.
+So, you can examine these transactions on both the Bitcoin and Ethereum blockchains, and many other blockchains.
+In Chapter 2 of this course, we'll touch upon the Hyperledger Explorer, which can be configured to examine blockchains you might develop with other of the Hyperledger frameworks.
+
+### Video 8 - Certifying" a Document onto Blockchains Using Stamp.io
+ Bookmark this page
+
+In this screencast, we will show how we can take a document and certify it to both the Bitcoin and Ethereum blockchains.
+I'm going to use the tool Stamp.io, and I will take a file and I will, in a sense, have it certified on the blockchain.
+Once this is done, the output on Stamp.io will show us a certificate.
+They call it the Stampery certificate, which indicates the name of the file, when it was added to Stampery,
+and the person who, in a sense, signed it.
+So, a particular hash of this document was stored in transactions which were placed in various blocks, on both the Ethereum and the Bitcoin blockchain.
+So, if we open up this particular transaction, we'll see that there was inside of this transaction a hash of the document,
+and this was done a number of days ago and added to this particular block on the Ethereum blockchain.
+If we examine the Bitcoin block, a transaction into which this transaction was put,
+we will also say that this here is the particular transaction that was then added to this particular block on the Bitcoin blockchain.
+So, stamp.io is a tool that can be used to put and verify document hashes onto both the Ethereum and Bitcoin blockchains.
+
+## Section 5 - Hyperledger
+
+### Video 9 - Hyperledger (Robert Schwentker)
+
+So, tell us about Hyperledger.
+So, Hyperledger is an umbrella of open source projects, some of which are blockchain distributed ledger frameworks such as Fabric,Sawtooth, and Iroha.
+Hyperledger may be thought of as an open system for marketplaces, including decentralized data sharing networks and digital communities.
+In fact, there are more than a hundred and thirty organizations which comprise the Hyperledger member community [as of October 2017].
+
+### Video 10 - 
