@@ -204,4 +204,62 @@ So, Hyperledger is an umbrella of open source projects, some of which are blockc
 Hyperledger may be thought of as an open system for marketplaces, including decentralized data sharing networks and digital communities.
 In fact, there are more than a hundred and thirty organizations which comprise the Hyperledger member community [as of October 2017].
 
-### Video 10 - 
+### Video 10 - Hyperledger vs. Other Permissioned Ledgers (Brian Behlendorf)
+
+What makes Hyperledger so unique, compared to other permissioned ledgers?
+So, Hyperledger is a really unique community in the open source landscape of different blockchain technologies.
+We kind of model ourselves a little bit after Apache, and some of the other organizations out there that really are communities of communities, right?
+Within Hyperledger, we have eight different technology code projects, essentially (as of October 2017).
+Projects like Fabric and Sawtooth, and a lot of the others that all of you will be finding out about,
+but, what these projects have in common is a set of development principles around working in the public,
+around, you know... even from the earliest ideas, you know, developers should be sharing that with other developers, right,
+not just something they build privately, then throw over the wall, and release this open code,
+but that starts out from day one as a public process, right, and multi-stakeholder as well.
+So, while projects do often start out as the work of one company or one small set of developers,
+we really come to trust technologies when we see that there's lots of people both using it and contributing to it.
+And so, that way, we know this is actually a project that will likely outlast any one company's commitment to it, right?
+That's a good basis for deciding what open source technologies to build on.
+So, at Hyperledger, we're trying to make sure that each of these projects fulfills that goal of being multi-stakeholder,
+of being active software development projects that get as quickly as possible to a production release,
+something that organizations can actually use in real production environments, and yet, still has the flexibility to explore a new concept,
+to explore a new consensus mechanism, a new way of writing smart contracts, right?
+So, that balancing act is really what we're trying to strive for inside of Hyperledger.
+
+## Section 6 - Other Open Source Permissioned Distributed Ledgers
+
+### Video 11 - Other Distributed Ledger Technologies (Robert Schwentker)
+
+What are some examples of other blockchain and distributed ledger technology systems, and what are their benefits?
+Chain Core, created by chain.com, has initially been designed for financial service institutions,
+and for things like securities, bonds, and currencies.
+Their company has strong ties with Visa, Citigroup, and Nasdaq.
+The Corda distributed ledger platform is designed to record, manage, and automate legal agreements between businesses.
+It was created by the R3 company, which is a consortium of over a hundred global financial institutions.
+Quorum is a permissioned implementation of Ethereum, which supports data privacy.
+Quorum achieves this data privacy through allowing data visibility on need-to-know basis by a voting-based consensus algorithm.
+Interestingly, Quorum was created and open sourced by JPMorgan.
+
+## Chapter Conclusions 
+
+For a new technology to realize its full potential, a lot of pieces need to exist before network effects can be realized. Moreover, in order for the technology to bring in systemic efficiencies, a critical mass needs to be attained. As an infrastructure technology, all major players in the market need to collaborate to define standards in a democratic manner. The blockchain community is indeed witnessing unprecedented levels of industry collaboration between players who are otherwise competitors in the space. Because of the cost of moving from one infrastructure technology to the next, an open source collaborative approach is the most promising way forward. As you will learn in Chapter 2, "Introduction to Hyperledger", Hyperledger's mandate is to develop and nurture this ecosystem to develop the future of business blockchain technologies.
+
+# Chapter 2 - Introduction to Hyperledger
+
+## Section 1 - Hyperledger
+
+### Video 12 - Hyperledger (Navroop Sahdev)
+
+Hyperledger is an open source effort created to advance cross-industry blockchain technologies.
+It's a global collaboration hosted by The Linux Foundation that encompasses various industries and organizations worldwide.
+You may think of Hyperledger as an operating system for marketplaces, data sharing networks, microcurrencies, and decentralized digital communities.
+A shared goal is to significantly reduce the cost and complexity of doing business.
+Hyperledger blockchains are permissioned blockchains, which means that the parties that join the network are generally authenticated via an identity module.
+Essentially, Hyperledger blockchains are specifically designed to be enterprise solutions.
+If you look at permissionless blockchains, like the Bitcoin blockchain or the Ethereum blockchain, anyone can join the network,
+which means there would invariably be some malicious actors within the network.
+Hyperledger reduces these security risks, and ensures that only the parties that want to transact are the ones that are part of the transaction.
+Rather than displaying the record of the transactions to the whole network, they remain within the parties involved.
+So, Hyperledger provides all the capabilities of blockchain architecture, data privacy, information sharing, immutability,
+with a full stack of security protocols, all for the enterprise.
+
+### Video 13 - 
