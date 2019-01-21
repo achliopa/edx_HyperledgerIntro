@@ -266,4 +266,157 @@
 
 ## Section 1 - Hyperledger
 
-### Lecture 32 - 
+### Lecture 32 - [Hyperledger](https://www.hyperledger.org/)
+
+* Hyperledger is a group of open source projects focused around cross-industry distributed ledger technologies. Hosted by The Linux Foundation, collaborators include industry leaders in technology, finance, banking, supply chain management, manufacturing, and IoT.
+* As of October 2018, Hyperledger consists of ten projects, five of which are distributed ledger frameworks. The other five projects are tools that support these frameworks.
+* As Arnaud Le Hors, member of the Hyperledger Technical Steering Committee, emphasized,
+
+*"these projects show how broadly applicable blockchain technology really is. This goes way beyond cryptocurrencies".*
+
+* Hyperledger provides an alternative to the cryptocurrency-based blockchain model, and focuses on developing blockchain frameworks and modules to support global enterprise solutions. The focus of Hyperledger is to provide a transparent and collaborative approach to blockchain development.
+
+### Lecture 33 - Comparing Hyperledger with Bitcoin and Ethereum
+
+* The following table explores the differences between Hyperledger's permissioned distributed ledgers and the Bitcoin and Ethereum permissionless blockchains. If you are considering blockchain solutions for your business requirements, it is important to pay attention to all these elements and weigh in on those that are most important for your use case.
+	* Cryptocurrency-based: Bitcoin(V) Ethereum(V) Hyperledger(X)
+	* Permissioned: Bitcoin(X) Ethereum(X) Hyperledger(V?)
+	* Pseudo-anonymous: Bitcoin(V) Ethereum(x) Hyperledger(X)
+	* Auditable: Bitcoin(V) Ethereum(V) Hyperledger(v)
+	* Immutable ledger: Bitcoin(V) Ethereum(X) Hyperledger(X)
+	* Modularity: Bitcoin(X) Ethereum(X) Hyperledger(v)
+	* Smart contracts: Bitcoin(X) Ethereum(V) Hyperledger(V)
+	* Consensus Protocol: Bitcoin(PoW) Ethereum(PoW) Hyperledger(Various)
+
+* Sawtooth can be configured to be permissionless
+* Key Hyperledger consensus protocols are Apache Kafka in Hyperledger Fabric, PoET in Hyperledger Sawtooth, RBFT in Hyperledger Indy, Tendermint in Hyperledger Burrow, and Yet Another Consensus (YAC) in Hyperledger Iroha. For more details, see the Hyperledger Architecture, Volume 1 paper.
+
+### Lecture 34 - Hyperledger Goals
+
+* Hyperledger has taken a leadership role to develop cross-industry standards and provide a neutral space for software collaboration. The financial services industry, in particular, is witnessing an unprecedented level of collaboration between institutions that have traditionally been competitors. The advent of a new foundational or infrastructural technology like the blockchain - much like the Internet - requires collaboration of various actors in order to realize the full benefits of the technology. Unless all actors use a certain standard, the pace of technological dissemination will continue to be slow. Technological adoption is characterized by network effects, where the costs decrease with the increase in use of a certain technology. Since shifting to distributed ledger technology involves significant costs, open source software, communities and ecosystems that develop around these have a significant part to play.
+
+### Lecture 35 - Open Standards
+
+*"Only an Open Source, collaborative software development approach can ensure the transparency, longevity, interoperability and support required to bring blockchain technologies forward to mainstream commercial adoption. That is what Hyperledger is about - communities of software developers building blockchain frameworks and platforms".* - hyperledger.org 
+
+* As we learned in Chapter 1: "Discovering Blockchain Technologies", the non-availability of standards in distributed ledger technologies is one of the major hurdles in scaling them. One of Hyperledger's key goals is to facilitate the process of standards formation, not by promoting its own distributed ledger(s), but by providing a space for a variety of standards to co-exist simultaneously:
+
+*"Rather than declaring a single blockchain standard, it encourages a collaborative approach to developing blockchain technologies via a community process, with intellectual property rights that encourage open development and the adoption of key standards over time".* - hyperledger-fabric.readthedocs.io 
+
+* Hyperledger aims to adhere to "open standards", which means they are
+
+*"(...) interoperable through open published interfaces and services".* - John Palfreyman, ibm.com
+
+### Lecture 36 - Open Source and Open Governance
+
+*"Today, most people understand the concept of Open Source. What many people don't get, and something we here at Hyperledger and The Linux Foundation pride ourselves on doing well, is Open Governance".* - hyperledger.org
+
+* Open source software is software that is made freely available and may be redistributed and modified. In other words, anyone has the ability to view the code, use the code, copy the code, change the code, and, depending on the open source license, contribute back changes.
+* Open governance means that technical decisions for an open source project are made by a group of community-elected developers drawn from a pool of active participants. These decisions include things such as which features to add, how, and when to add them.
+* To learn more about the specifics of Hyperledger's open governance read the following article "ABCs of Open Governance".
+
+### Lecture 37 - Blockchain for Business
+
+* The cryptocurrency-based blockchain model, popularized by public blockchains like Bitcoin and Ethereum, currently falls short of fulfilling a host of requirements that many types of organizations would have to fulfill in order to be compliant when using blockchain and distributed ledger technologies - for instance, in the areas of financial services, healthcare, and government.
+* Hyperledger is a unique platform that is developing permissioned distributed ledger frameworks specifically designed for enterprises, including those in industries with strong compliance requirements. Enterprise use cases require capabilities such as scalability and throughput, built-in or interoperable identity modules for the parties involved in a transaction or a network, or even access to regulators who can access all data in the ledger as read-only to ensure compliance. The latter is particularly important because, regardless of the innovation, it has to operate within the current regulatory framework, as well as comply with any new rules that come into place specifically targeted at blockchain technologies.
+* The enterprise continues to be at the heart of this course.
+
+## Section 2 - Hyperledger Frameworks
+
+### Lecture 38 - Components of Hyperledger Frameworks
+
+* Hyperledger business blockchain frameworks are used to build enterprise blockchains for a consortium of organizations. They are different than public ledgers like the Bitcoin blockchain and Ethereum. The Hyperledger frameworks include:
+	* An append-only distributed ledger
+	* A consensus algorithm for agreeing to changes in the ledger
+	* Privacy of transactions through permissioned access
+	* Smart contracts to process transaction requests.
+
+### Lecture 39 - Hyperledger Iroha v0.95
+
+* [Hyperledger Iroha](https://www.hyperledger.org/projects/iroha) is a blockchain framework contributed by Soramitsu, Hitachi, NTT Data, and Colu. Hyperledger Iroha is designed to be simple and easy to incorporate into infrastructure projects requiring distributed ledger technology. Hyperledger Iroha emphasizes mobile application development with client libraries for Android and iOS, making it distinct from other Hyperledger frameworks. Inspired by Hyperledger Fabric, Hyperledger Iroha seeks to complement Hyperledger Fabric and Hyperledger Sawtooth, while providing a development environment for C++ developers to contribute to Hyperledger.
+* In conclusion, Hyperledger Iroha features a simple construction, modern, domain-driven C++ design, along with the consensus algorithm YAC.
+
+### Lecture 40 - Hyperledger Sawtooth v1.0
+
+* [Hyperledger Sawtooth](https://www.hyperledger.org/projects/sawtooth), contributed by Intel, is a blockchain framework that utilizes a modular platform for building, deploying, and running distributed ledgers. Distributed ledger solutions built with Hyperledger Sawtooth can utilize various consensus algorithms based on the size of the network. It includes the Proof of Elapsed Time (PoET) consensus algorithm, which provides the scalability of the Bitcoin blockchain without the high energy consumption. PoET allows for a highly scalable network of validator nodes. Hyperledger Sawtooth is designed for versatility, with support for both permissioned and permissionless deployments.
+
+### Lecture 41 - Hyperledger Fabric v1.0
+
+* [Hyperledger Fabric](https://www.hyperledger.org/projects/fabric) was the first proposal for a codebase, combining previous work done by Digital Asset Holdings, Blockstream's libconsensus, and IBM's OpenBlockchain. Hyperledger Fabric provides a modular architecture, which allows components such as consensus and membership services to be plug-and-play. Hyperledger Fabric is revolutionary in allowing entities to conduct confidential transactions without passing information through a central authority. This is accomplished through different channels that run within the network, as well as the division of labor that characterizes the different nodes within the network. Lastly, it is important to remember that, unlike Bitcoin, which is a public chain, Hyperledger Fabric supports permissioned deployments.
+
+*"If you have a large blockchain network and you want to share data with only certain parties, you can create a private channel with just those participants. It is the most distinctive thing about Fabric right now"* - Brian Behlendorf, Executive Director of Hyperledger, The Linux Foundation
+
+### Lecture 42 - Hyperledger Indy
+
+* [Hyperledger Indy](https://www.hyperledger.org/projects/hyperledger-indy) is a distributed ledger purpose-built for decentralized identity. Hyperledger Indy's goal is to achieve this by developing a set of
+
+*"(...) decentralized identity specs and artifacts that are independent of any particular ledger and will enable interoperability across any DLT that supports them".*
+
+* Contributed by the Sovrin Foundation, Hyperledger Indy allows individuals to manage and control their digital identities. Rather than having businesses store huge amounts of personal data of individuals, Hyperledger Indy allows businesses to store pointers to identity. Once the company verifies the other party's identity, it throws it away.
+* According to Brian Behlendorf,
+
+* "(...) identity is a toxic asset that could present a liability to organizations".*
+
+* Indeed, since 2013, over 9 billion data records were lost or stolen. What is striking is that, out of these, only 4% were encrypted, and hence, rendered useless after being stolen (also called "secure breaches"). You can find detailed statistics at the Breach Level Index website.
+* One of the key principles of Hyperledger Indy is its "privacy by design" approach. Given the immutable nature of the DLT, it is all the more important that digital identities be handled with the utmost care, keeping human values front and center.
+
+*"Hyperledger Indy lets users authenticate identity based on the attributes they are willing to store and share themselves. This can reduce the amount of liability contained within a business because the data can be kept with the user and presented to you again in a way that you can trust and validate that what has been said really was said and is trusted by the other parties you do business with".* - Nathan George, Maintainer, Hyperledger Indy
+
+* Further information about the history of the project can be found at the [Sovrin's website](https://sovrin.org/).
+
+### Lecture 43 - Hyperledger Burrow v0.16.1
+
+* Formally known as eris-db, [Hyperledger Burrow](https://www.hyperledger.org/projects/hyperledger-burrow) was released in December 2014. Currently under incubation, Hyperledger Burrow is a permissionable smart contract machine that provides a modular blockchain client with a permissioned smart contract interpreter built- in part to the specification of the Ethereum Virtual Machine (EVM). It is the only available Apache-licensed EVM implementation.
+* Following are the major components of Burrow:
+	* The Gateway provides interfaces for systems integration and user interfaces
+	* The Smart contract application engine facilitates integration of complex business logic (maintaining the networking stack between the nodes and ordering transactions)
+	* The Application Blockchain Interface (ABCI) provides interface specification for the consensus engine and smart contract application engine to connect.
+
+## Section 3 - Hyperledger Tools
+
+* The Hyperledger frameworks which we examined in the previous section are used to build blockchains and distributed ledgers. The Hyperledger tools, which we will look at next, are auxiliary softwares used for things like deploying and maintaining blockchains, examining the data on the ledgers, as well as tools to design, prototype, and extend blockchain networks.
+
+### Lecture 44 - Hyperledger Cello
+
+* For businesses that want to deploy Blockchain-as-a-Service, [Hyperledger Cello](https://www.hyperledger.org/projects/cello) provides a toolkit that fulfills this need. Particularly for lean businesses and small enterprises, who want to reduce or eliminate the effort required in creating, managing, and terminating blockchains, Hyperledger Cello allows blockchains deployment to the cloud. Operators can create and manage such blockchains through a dashboard, and users (typically, chaincode developers) can obtain a blockchain instance immediately.
+
+As a Hyperledger module, "Cello aims to bring the on-demand 'as-a-service' deployment model to the blockchain ecosystem", thus helping in furthering the development and deployment of Hyperledger's frameworks. Hyperledger Cello was initially contributed by IBM, with sponsors from Soramitsu, Huawei, and Intel.
+
+Application developers and system administrators using Cello can provision and maintain Hyperledger networks. For instance, you can create a group of distributed ledger networks in virtual clouds known as 'container clusters', and then, manage and monitor those networks with a configurable dashboard. Additionally, you can build a Blockchain-as-a-Service (BaaS) platform.
+
+### Lecture 45 - Hyperledger Explorer
+
+* [Hyperledger Explorer](https://www.hyperledger.org/projects/explorer) is a tool for visualizing blockchain operations. It is the first ever blockchain explorer for permissioned ledgers, allowing anyone to explore the distributed ledger projects being created by Hyperledger's members from the inside, without compromising their privacy. The project was contributed by DTCC, Intel, and IBM.
+
+Designed to create a user-friendly web application, Hyperledger Explorer can view, invoke, deploy, or query:
+
+Blocks
+Transactions and associated data
+Network information (name, status, list of nodes)
+Smart contracts (chain codes and transaction families)
+Other relevant information stored in the ledger.
+The ability to visualize data is of critical importance, in order to extract business value from it. Hyperledger Explorer provides this much needed functionality. Key components include a web server, a web UI, web sockets, a database, a security repository, and a blockchain implementation.
+
+### Lecture 46 - Hyperledger Composer
+
+* [Hyperledger Composer](https://www.hyperledger.org/projects/composer) provides a suite of tools for building blockchain business networks. These tools allow you to:
+	* Model your business blockchain network
+	* Generate REST APIs for interacting with your blockchain network
+	* Generate a skeleton Angular application.
+* Built in Javascript, Hyperledger Composer provides an easy-to-use set of components that developers can quickly learn and implement. The project was contributed by Oxchains and IBM.
+* Hyperledger Composer has created a modelling language that allows you to define the assets, participants, and transactions that make up your business network using business vocabulary. In addition, the transaction logic is then written by developers using Javascript. This simple interface allows business people and technologists to work together on defining their business network.
+* The benefits of Hyperledger Composer are:
+	* Faster creation of blockchain applications, eliminating the massive effort required to build blockchain applications from scratch
+	* Reduced risk with well-tested, efficient design that aligns understanding across business and technical analysts
+	* Greater flexibility as the higher-level abstractions make it far simpler to iterate.
+* To get an overview of Hyperledger Composer watch "Introduction to Hyperledger Composer" and take a look at Chapter 6
+
+### Lecture 47 - Hyperledger Caliper
+
+* [Hyperledger Caliper](https://www.hyperledger.org/projects/caliper) is a blockchain benchmark tool that allows users to measure the performance of a specific blockchain implementation with a set of predefined use cases. Hyperledger Caliper will produce reports containing a number of performance indicators (e.g., transactions per second, transaction latency, resource utilization, etc.). These reports can be used in deciding what blockchain implementation is suitable for a user's specific needs, as well as by other Hyperledger projects as they build out their framework. 
+* Hyperledger Caliper was initially contributed by developers from Huawei, Hyperchain, Oracle, Bitwise, Soramitsu, IBM and the Budapest University of Technology and Economics.
+
+### Lecture 48 - Hyperledger Quilt
+
+* [Hyperledger Quilt](https://www.hyperledger.org/projects/quilt) is a business blockchain tool that offers interoperability between ledger systems by implementing the Interledger protocol (which is primarily a payments protocol designed to transfer value across distributed ledgers and non-distributed ledgers). 
+* Hyperledger Quilt was initially contributed by NTT Data and Ripple.
