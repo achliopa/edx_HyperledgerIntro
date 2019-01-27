@@ -659,4 +659,150 @@ With distributed ledger technologies like Hyperledger, we can actually have the 
 especially in a more decentralized setting.
 We can avoid the over-centralization of industries, and the over-centralization of society through the use of these technologies.
 
-### Video 29 - 
+# Chapter 3 - The Promise of Business Blockchain Technologies
+
+### Video 29 - Introduction (Nathalie Salami)
+
+This chapter is designed to help people evaluate whether blockchain tech, including the Hyperledger frameworks, are right for their business,
+and where best to implement this new technology.
+We will cover the ways industry is using  blockchain technology today, and show you some common features of blockchains that can provide efficiencies in business.
+The finance industry, in particular, put a lot of resources behind blockchain tech early on.
+They have created blockchains and distributed ledgers for transferring assets and recording trade agreements.
+Many types of transactions, such as private company stock sales, bonds, options, and cash transactions have all been recorded on permissioned blockchains.
+Blockchains are very good at recording state transitions.
+And just as the finance industry uses it to record who owns an asset at any given moment in time,
+the legal industry has also implemented blockchain technology to record property rights and the transfer of those rights.
+It will be interesting to see how the courts adapt to recording contractual agreements on both public and permissioned blockchains going forward.
+Insurance companies act as a trusted intermediary, pooling funds from unaffiliated individuals.
+By holding these funds, they spread the risk of catastrophe amongst all clients.
+Clients of these insurance companies trust that, when something happens, the insurance company will pay them.
+Blockchain tech may be able to disrupt the insurance industry, as they may leverage the Hyperledger frameworks as a nexus of trust that controls claim payouts.
+The healthcare industry has also found distributed ledger technology to be useful to record and share data,
+such as patient health records, or pharmacy information.
+Finally, several industries that deal with materials and product supply chains have began using blockchain and the Hyperledger frameworks for improved resource, sourcing, and allocation.
+
+## Section 1 - Existing Blockchain Use Cases
+
+### Video 30 - Hyperledger Advantages for Businesses (Brian Behlendorf)
+
+Technologists are studying the Hyperledger protocol and applications.
+What should business professionals know about the Hyperledger project?
+So, business professionals who should... when they see the word 'hyperledger', right,
+they should associate that with a set of principles that have to do with the creation of high-quality, trustworthy software, right?
+First of all, they should associate it with open source development practices,
+they should know that any project that carries the term 'hyperledger', 'hyperledger foobar', 'hyperledger rhubarb', right,
+that these are projects that have been collaboratively built,
+that have been vetted by multiple developers working in concert on the technology,
+that it's as secure as we can make it, because the code is out there.
+We try to hire folks to vet it, but we also... fundamentally, you shouldn't trust software that you can't see the source code to, right?
+So, that brand association, that trademark should really come to be associated with open source, with security, as well as with a sense of process,
+like something that can't just show up one day and become a Hyperledger project.
+The Technical Steering Committee has to approve any new proposed submission, and they have a pretty high bar.
+Our goal, again, is not to be the GitHub of projects, even in the distributed technology, or distributed ledger, or smart contract space,
+but to really have a high quality portfolio of these different efforts.
+Finally, they should realize that they can build their business on top of Hyperledger technologies,
+they can use it all day long, they don't owe anybody a fee, a license fee, a patent license, nothing,
+and, if they feel like it, if they want to contribute, there should be an easy glide path to having their technical teams get  deeper into the code,
+become contributors, and even help set the direction for the technology.
+
+### Video 31 - Blockchain Use Case (Brian Behlendorf)
+
+What is your favorite blockchain use case?
+So, you know, what gets me up in the morning isn't so much making Wall Street, you know, a few milliseconds faster or...
+I mean, to some degree, it's nice to be able to talk about, you know, bank payments taking five minutes, rather than three days, okay?
+That's kind of a win! But, I'd say, the use cases that wake me up in the morning have more to do with positive social impact, alright?
+Projects that, at the same time, is making a difference in fighting slave labor, say, fighting the conflict diamond problems in the diamond supply chain,
+or fighting the illegal fish catching and the slave labor practices that happen in the fishing industry, by providing better provenance tracking for the fish supply chain...
+But, I'm also very much intrigued by identity projects out there, and the potential for distributed ledger applications to take something like India's Aadhar, which is their national ID system,
+and reinvent that as a decentralized privacy-protecting national ID system, rather than as a centralized, potentially privacy-invasive central ID system.
+So, lots of companies are starting to figure this out,
+lots of companies with large amounts of customers are starting to figure this out,
+and we certainly could do with fewer privacy breaches out there, and less surveillance capitalism,
+which, you look at all these businesses... many of them have business models based on learning too much about people.
+I think through distributed ledger technology, ironically enough,
+we can actually come up with systems that make management of the distribution of personal data much easier to put in the hands of the individuals themselves.
+And so, that's really what gets me excited.
+
+### Video 32 - Business Interest in Hyperledger (Brian Behlendorf)
+
+Where have you seen the most industry activity in Hyperledger, to date? (October 2017)
+So, much of the interest in distributed ledger technology has come from the finance industry, much of the initial early interest, right?
+This is an industry that has long had not just ledgers, but a need to reconcile those ledgers across organizations.
+Like, when you route a payment from one bank to another, there's a little message that says, you know, this person is routing that payment to that account.
+But those banks have a reconciliation process to go through that can take days, right?
+That's why a payment takes days to clear, so to speak.
+And, with a distributed ledger such as those implemented by projects at Hyperledger, that confirmation step, that synchronization step can be instantaneous, right?
+So, the financial sector has all sorts of really easy to imagine, easy to transpose applications and needs for which distributed ledgers make sense.
+If they can perform quick enough, if they can be made flexible enough, that sort of thing.
+But, pretty early on, people started to realize there are these other applications, for which, you know, the need for a distributed ledger, a system of record,
+to record things like the movement of goods through a supply chain, right, or potentially use it as a way to denote, say, your education record, right,
+you know, what are the schools you attended... if you're a doctor, what are the certifications that you've been awarded, the licenses to practice, and where...
+So, for example, the medical industry, the healthcare industry is really interested in the use of distributed ledgers for doctor certifications, provider directories, as they call them,
+potentially, as well for looking at payment flows of claims, and maybe, even patient medical records.
+Now, those last few are kind of, you know, more of a moonshot, because they involve a substantial amount of confidential data,
+and we're still learning the best techniques for ensuring the confidentiality of transactions, and the confidentiality of data flowing across these networks.
+But, I think we're gonna figure that out.
+So, healthcare is big, finance has been big, and then, every sector has a supply chain components somewhere in them, right?
+The food sector, the jewelry sector...
+So, there's a supply chain project around diamonds to help keep conflict diamonds out of circulation,
+and help make sure that, when you buy a diamond at the retail market, it actually is, you know, both the quality and from the location that it claims to be from, right?
+So, there's lots of these different use cases bubbling up, and frankly, at this point, I can't imagine a sector that doesn't have a need somewhere for a system of record,
+a distributed ledger, a way to record transactions...
+And indeed, the kind of interest we're seeing at Hyperledger comes from so many different sectors.
+Even our own membership reflects that, with members like Airbus, and Daimler, and Change Healthcare, which is a part of McKesson,
+those are companies that, not only are saying "Hey, we're interested!", but have actually made a financial commitment to being a part of Hyperledger,
+and to playing with that technology within their own enterprises.Where have you seen the most industry activity in Hyperledger, to date? (October 2017)
+So, much of the interest in distributed ledger technology has come from the finance industry, much of the initial early interest, right?
+This is an industry that has long had not just ledgers, but a need to reconcile those ledgers across organizations.
+Like, when you route a payment from one bank to another, there's a little message that says, you know, this person is routing that payment to that account.
+But those banks have a reconciliation process to go through that can take days, right?
+That's why a payment takes days to clear, so to speak.
+And, with a distributed ledger such as those implemented by projects at Hyperledger, that confirmation step, that synchronization step can be instantaneous, right?
+So, the financial sector has all sorts of really easy to imagine, easy to transpose applications and needs for which distributed ledgers make sense.
+If they can perform quick enough, if they can be made flexible enough, that sort of thing.
+But, pretty early on, people started to realize there are these other applications, for which, you know, the need for a distributed ledger, a system of record,
+to record things like the movement of goods through a supply chain, right, or potentially use it as a way to denote, say, your education record, right,
+you know, what are the schools you attended... if you're a doctor, what are the certifications that you've been awarded, the licenses to practice, and where...
+So, for example, the medical industry, the healthcare industry is really interested in the use of distributed ledgers for doctor certifications, provider directories, as they call them,
+potentially, as well for looking at payment flows of claims, and maybe, even patient medical records.
+Now, those last few are kind of, you know, more of a moonshot, because they involve a substantial amount of confidential data,
+and we're still learning the best techniques for ensuring the confidentiality of transactions, and the confidentiality of data flowing across these networks.
+But, I think we're gonna figure that out.
+So, healthcare is big, finance has been big, and then, every sector has a supply chain components somewhere in them, right?
+The food sector, the jewelry sector...
+So, there's a supply chain project around diamonds to help keep conflict diamonds out of circulation,
+and help make sure that, when you buy a diamond at the retail market, it actually is, you know, both the quality and from the location that it claims to be from, right?
+So, there's lots of these different use cases bubbling up, and frankly, at this point, I can't imagine a sector that doesn't have a need somewhere for a system of record,
+a distributed ledger, a way to record transactions...
+And indeed, the kind of interest we're seeing at Hyperledger comes from so many different sectors.
+Even our own membership reflects that, with members like Airbus, and Daimler, and Change Healthcare, which is a part of McKesson,
+those are companies that, not only are saying "Hey, we're interested!", but have actually made a financial commitment to being a part of Hyperledger,
+and to playing with that technology within their own enterprises.Where have you seen the most industry activity in Hyperledger, to date? (October 2017)
+So, much of the interest in distributed ledger technology has come from the finance industry, much of the initial early interest, right?
+This is an industry that has long had not just ledgers, but a need to reconcile those ledgers across organizations.
+Like, when you route a payment from one bank to another, there's a little message that says, you know, this person is routing that payment to that account.
+But those banks have a reconciliation process to go through that can take days, right?
+That's why a payment takes days to clear, so to speak.
+And, with a distributed ledger such as those implemented by projects at Hyperledger, that confirmation step, that synchronization step can be instantaneous, right?
+So, the financial sector has all sorts of really easy to imagine, easy to transpose applications and needs for which distributed ledgers make sense.
+If they can perform quick enough, if they can be made flexible enough, that sort of thing.
+But, pretty early on, people started to realize there are these other applications, for which, you know, the need for a distributed ledger, a system of record,
+to record things like the movement of goods through a supply chain, right, or potentially use it as a way to denote, say, your education record, right,
+you know, what are the schools you attended... if you're a doctor, what are the certifications that you've been awarded, the licenses to practice, and where...
+So, for example, the medical industry, the healthcare industry is really interested in the use of distributed ledgers for doctor certifications, provider directories, as they call them,
+potentially, as well for looking at payment flows of claims, and maybe, even patient medical records.
+Now, those last few are kind of, you know, more of a moonshot, because they involve a substantial amount of confidential data,
+and we're still learning the best techniques for ensuring the confidentiality of transactions, and the confidentiality of data flowing across these networks.
+But, I think we're gonna figure that out.
+So, healthcare is big, finance has been big, and then, every sector has a supply chain components somewhere in them, right?
+The food sector, the jewelry sector...
+So, there's a supply chain project around diamonds to help keep conflict diamonds out of circulation,
+and help make sure that, when you buy a diamond at the retail market, it actually is, you know, both the quality and from the location that it claims to be from, right?
+So, there's lots of these different use cases bubbling up, and frankly, at this point, I can't imagine a sector that doesn't have a need somewhere for a system of record,
+a distributed ledger, a way to record transactions...
+And indeed, the kind of interest we're seeing at Hyperledger comes from so many different sectors.
+Even our own membership reflects that, with members like Airbus, and Daimler, and Change Healthcare, which is a part of McKesson,
+those are companies that, not only are saying "Hey, we're interested!", but have actually made a financial commitment to being a part of Hyperledger,
+and to playing with that technology within their own enterprises.
+
+### Video 33 - 
