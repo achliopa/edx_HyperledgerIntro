@@ -805,4 +805,40 @@ Even our own membership reflects that, with members like Airbus, and Daimler, an
 those are companies that, not only are saying "Hey, we're interested!", but have actually made a financial commitment to being a part of Hyperledger,
 and to playing with that technology within their own enterprises.
 
-### Video 33 - 
+## Section 2 - When to Use or Not to Use Blockchain Technologies
+
+### Video 33 - What Enterprises Look for When Evaluating Whether or Not to Use Hyperledger (Brian Behlendorf)
+
+What should an enterprise look for when evaluating whether or not to use Hyperledger?
+So, I always try to start... suggest that people start with the business need, right,
+trying to look at what are you doing in your enterprise, and probably, it will mean
+what are you doing with your business partners, with your suppliers, with your customers, maybe even with your competitors, right?
+What is it... what are some business processes, or some provenance tracking problems,
+or a registry somewhere that, you know, you're putting too much trust in a central org somewhere,
+where is there an opportunity to take a decentralized ledger approach, and a smart contract approach to solving those issues?
+Start with the need, right?
+In fact, one way to explore that is, you know, every industry has a consortium somewhere in that industry talking about technical standards,
+talking about common business processes, and those are often the right kinds of organizations to look at doing a proof of concept with, right?
+Because they often have kind of this overarching kind of view of the industry,
+and they tend to be trusted by the participants in that industry.
+So, often, they could come up with what's the right kind of proof of concept, or maybe even a Minimum Viable Product kind of project,
+because there really is no blockchain of one, right?
+It's really hard just to think about solving your own problems with a block, with a distributed ledger.
+You really need to think about an industry-wide kind of approach, even from the earliest day.
+Once you've identified like that kind of opportunity, you should start to ask yourself what are the characteristics of that need,
+is it from a transaction rate perspective, from a number of nodes, from how geographically distributed those nodes might be,
+and then, also ask yourself who are the developers that I'm expecting to be able to tap, to bring this technology to bear,
+and have they started to investigate distributed ledger technology,
+have they started to learn how Fabric works, how Sawtooth works...
+So, I think that that's another important side of it.
+As the business side of the house is trying to understand the use cases, you should really let your technology teams explore this technology,
+allow them to get their hands dirty, to go to a hackathon, to take this course, to start playing with these technologies to get a more intuitive sense for what they do,
+and what they can't do, right, what their limitations might be.
+This is still very early days, and you still need to be smart about how do we apply these and how do we use them.
+So, at some point, those two teams should meet up, right, and say "Here's what we think is really the MVP [Minimum Viable Product] or a proof of concept",
+and the other team should... that comes from the technology side of the house, should say "Okay, we understand how to build this, you know,
+if we, you know, shave these corners, we can do something in a week", right?
+and let's just see that, you know, cheap and dirty, what it looks like.
+And then, over time, start to promulgate that amongst the other partners that you think you'd involve in a distributed ledger project.
+
+### Video 34 - 
