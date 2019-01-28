@@ -529,4 +529,113 @@ As a consumer reading from a blockchain, you would be able to verify a productâ€
 
 ## Section 1 - Installation Instructions for Linux
 
-* 
+### Lecture 58 - Installing cURL
+
+* Open a terminal window: CTRL+ALT+T.
+* install cURL: `sudo apt install curl`
+* check installation: `curl -V`
+
+### Lecture 59 - Installing Docker 
+
+* Installation instrctions at [docker.com](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/)
+* we install Docker CE on a x64 linux machine
+* we check installation with `sudo docker -v`
+
+### Lecture 60 - Manage Docker as a Non-Root User
+
+* If you don't want to use sudo when you use the docker command, create a Unix group called docker and add users to it. When the docker daemon starts, it makes the ownership of the Unix socket read/writable by the docker group.
+
+*Warning: The docker group grants privileges equivalent to the root user. For details on how this impacts security in your system, see [Docker Daemon Attack Surface](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface).*
+* To create the docker group and add your user:
+	*  Create the docker group: `sudo groupadd docker`
+	* Add your user to the docker group: `sudo usermod -aG docker $USER`
+	* Log out and log back in, so that your group membership is re-evaluated.
+	* On a desktop Linux environment such as X Windows, log out of your session completely and then log back in.
+	* Verify that you can run Docker commands without sudo. `docker run hello-world`
+	* This command downloads a test image and runs it in a container. When the container runs, it prints an informational message and exits.
+
+### Lecture 61 - Docker Compose
+
+* To install Docker Compose, run the following commands in your terminal/command line: 
+```
+sudo apt update
+sudo apt install docker-compose
+```
+* Check to make sure that you have Docker version 17.03.1-ce or greater, and Docker Compose version 1.9.0 or greater: `docker --version && docker-compose --version`
+
+### Lecture 62 - Installing Node.js and npm
+
+* To install Node.js and npm, run the following commands in your terminal/command line:
+```
+$ sudo bash -c "cat >/etc/apt/sources.list.d/nodesource.list" <<EOL
+deb https://deb.nodesource.com/node_6.x xenial main
+deb-src https://deb.nodesource.com/node_6.x xenial main
+EOL
+$ curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+$ sudo apt update
+$ sudo apt install nodejs
+$ sudo apt install npm
+```
+* Verify the installation, as well as  the versions of both Node.js and npm, and make sure the Node.js version you are installing is greater than v6.9 (do not use v7), and the npm version is greater than 3.x: `$ node --version && npm --version`
+* Or use nvm
+
+### Lecture 62 - Installing Go Language
+
+* Visit [Golang](https://golang.org/dl/) and make note of the latest stable release (v1.8 or later).
+* To install Go language, run the following commands in your terminal/command line:
+```
+sudo apt update
+sudo curl -O https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz 
+sudo tar -xvf go1.9.2.linux-amd64.tar.gz
+sudo mv go /usr/local
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
+source ~/.profile
+```
+* Check that the Go version is v1.8 or later: `go version`
+* Note: Switch out the black portion of the URL with the correct filename.
+
+# Chapter 5 - Introduction to Hyperledger Iroha
+
+* By the end of this chapter, you should be able to:
+	* Understand the basics of Hyperledger Iroha v0.95.
+	* Discuss crucial components of the Hyperledger Iroha architecture, including the consensus algorithm YAC (Yet Another Consensus), peers, clients and the ledger block storage Ametsuchi.
+	* Join the Hyperledger Iroha framework discussion and development.
+
+## Section 1 - Key Components
+
+### Lecture 63 - Hyperledger Iroha
+
+* Hyperledger Iroha is a blockchain framework, and one of the Hyperledger projects hosted by The Linux Foundation. Hyperledger Iroha was initially contributed by Soramitsu, Hitachi, NTT Data, and Colu. Hyperledger Iroha is designed to be simple and easy to incorporate into infrastructure projects requiring distributed ledger technology. Hyperledger Iroha features a simple construction, modern, domain-driven C++ design, emphasis on mobile application development, and the YAC consensus algorithm.
+
+### Lecture 63 - Architecture Overview
+
+* Before diving into the key components of Hyperledger Iroha, it is important to get an overarching look at this framework. The diagram below shows a layered architectural view of the different components that make up Hyperledger Iroha. The four layers are: API, Peer Interaction, Chain Business Logic, and Storage.
+* The components are:
+	* **Model** : Its classes are system entities.
+	* **Torii** (gate) : It provides the input and output interfaces for clients. It is a single [gRPC](https://grpc.io/) server that is used by clients to interact with peers through the network. The client's RPC call is non-blocking, making Torii an asynchronous server. Both commands (transactions) and queries (read access) are performed through this interface.
+	* **Network** : It encompasses interaction with the network of peers.
+	* **Consensus** : It is in charge of peers agreeing on chain content in the network. The consensus mechanism used by Iroha is YAC (Yet Another Consensus), which is a practical byzantine fault-tolerant algorithm based on voting for block hash.
+	* **Simulator** : It generates a temporary snapshot of storage to validate transactions by executing them against this snapshot and forming a verified proposal, which consists only of valid transactions.
+	* **Validator** : It classes check business rules and validity (correct format) of transactions or queries. There are two distinct types of validation that occur in Hyperledger Iroha:
+		- Stateless validation is a quicker form of validation, that performs schema and signature checks of the transaction.
+		- Stateful validation is a slower form of validation, that checks the permissions and the current world state view, which is the latest and most actual state of the chain, to see if desired business rules and policies are possible. For example, does an account have enough funds to transfer?
+	* **Synchronizer** : It helps to synchronize new peers in the system or temporarily disconnected peers.
+	* **Ametsuchi** : It is the ledger block storage which consists of a block index (currently Redis), block store (currently flat files), and a world state view component (currently PostgreSQL).
+
+### Lecture 64 - Participants within the Network
+
+* There are three main participants within a Hyperledger Iroha network:
+* **Clients**  : They are able to:
+	* Query data that they have access/permission to
+	* Perform a state-changing action, "transaction", which consists of atomic operations, called "commands". For example, in a single transaction, a user can transfer funds to three people (three separate commands). But, if he/she does not have enough funds to cover for all, the whole transaction will be rejected.
+* **Peers** : They maintain the current state and their own copy of the shared ledger. A peer is a single entity in the network, and has an address, identity, and trust. Hyperledger Iroha is designed so that a single peer may be a single computer or scaled for a cluster, meaning different computers are used for ledger storage, indices, validation, and peer-to-peer logic.
+* **Ordering service** : It orders transactions into a known order. There are a few options for the algorithm used by the ordering service. Kafka is considered a good candidate. It is important to mention that if Kafka, or any other distributed solution is used, that it be clustered; otherwise, this will result in a single point of failure.
+
+### Lecture 65 - Transaction Flow Basics
+
+* Step 1: A client creates and sends a transaction to the Torii gate, which routes the transaction to a peer that is responsible for performing stateless validation.
+* Step 2: After the peer performs stateless validation, the transaction is first sent to the ordering gate, which is responsible for choosing the right strategy of connection to the ordering service.
+* Step 3: The ordering service puts transactions into order and forwards them to peers in the consensus network in the form of proposals. A proposal is an unsigned block shared by the ordering service, that contains a batch of ordered transactions. Proposals are only forwarded when the ordering service has accumulated enough transactions, or a certain amount of time has elapsed since the last proposal. This prevents the ordering service from sending empty proposals.
+* Step 4: Each peer verifies the proposalâ€™s contents (stateful validation) in the Simulator and creates a block which consists only of verified transactions. This block is then sent to the consensus gate which performs YAC consensus logic.
+* Step 5: An ordered list of peers is determined, and a leader is elected based on the YAC consensus logic. Each peer casts a vote by signing and sending their proposed block to the leader.
+* Step 6: If the leader receives enough signed proposed blocks (i.e. more than two thirds of the peers), then it starts to send a commit message, indicating that this block should be applied to the chain of each peer participating in the consensus. Once the commit message has been sent, the proposed block becomes the next block in the chain of every peer via the synchronizer.
