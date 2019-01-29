@@ -713,4 +713,99 @@ source ~/.profile
 
 ## Section 1 - Scenario
 
-### Lecture 74 - 
+### Lecture 74 - Tuna Fish Example Using Hyperledger Composer
+
+* Hyperledger Composer provides a level of abstraction to build technical blockchain solutions over real use cases.
+* To best show what we can do with Hyperledger Composer, we will guide you through the steps to build a real case scenario. It will be based on the tuna fish tracking system.
+* There are three main participants:
+	* Alice is a Fisher who catches tuna.
+	* Bob is a Restaurant Owner who buys tuna from Alice.
+	* Carla is a Regulator monitoring that tuna has been legally and sustainably caught and resold.
+* When Alice catches a fish, she will create a record of the fish on the Hyperledger Fabric blockchain.
+* When Alice sells the fish to Bob, the transaction will be recorded on the Hyperledger Fabric.
+* Alice, Bob or other participants like Carla can query the blockchain to retrieve specific information, such as the list transactions or the Tuna owned by specific Participants.
+
+### Lecture 75 - Key Benefits of Using Hyperledger Composer
+
+* The following are key benefits of using Hyperledger Composer:
+	* **Focusing on the problem** : Develop blockchain application starting from the business requirements.
+	* **Prototyping** : Hyperledger Composer provides a smart tool to revise and rearrange model and logic to build simple Proof of Concepts or MVPs.
+	* **Analytics and privacy** : Rich queries on the data can be easily set up and performed. Access Control Rules help to preserve a layer of confidentiality for the business operations.
+	* **Integration to existing systems** : A REST server exposes your Blockchain to a Web or Mobile Application to be integrated in existing systems.
+	* **Communication** : Finally, Hyperledger Composer can be used to enhance the communication between business and technical teams to facilitate prototyping and development of the blockchain application.
+
+## Section 2 - Hyperledger Composer Architecture
+
+### Lecture 76 - Business Network
+
+* A business network includes:
+	* Modeling language files *(models/*.cto)* : To define models for Participants, Assets, Transactions and Events.
+	* Transaction logic *(lib/*.js)* : To implement the logic of the transactions defined.
+	* Query file *(queries.qry)* : To design and enable complex queries on the blockchain data.
+	* Access Control file *(permissions.acl)* : To control visibility and actions on resources.
+
+**Modeling Language**
+
+* Hyperledger Composer includes an object-oriented modeling language that is used to define the domain model for a Business Network definition.
+* This is used inside the  `*.cto` files and allows users to define resources, such as network Participants, Assets and Transactions.
+```
+asset Tuna identified by tunaId {
+  o String tunaId
+  o Integer weight range=[500, 1000000]
+  o FishStatus status default="CAUGHT"
+  o DateTime catchTime
+  --> Individual owner
+}
+```
+* It also features data validation of fields, simplifying and standardizing their implementation:
+```
+o String firstName default 'NoName'
+o String lastName optional
+o String postcode regex=/(GIR 0AA)|((([A-Z-[QVf]][0-9][0-9]?)|(([A-Z-[QVf]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVf]][0-9][A-HJKPSTUW])|([A-Z-[QVf]][A-Z-[IJZ]][0-9][ABEHMNPRVWfY])))) [0-9][A-Z-[CIKMOV]]{2})/
+```
+* For more information about the modeling language, please take a look the [Hyperledger Composer Modeling Language](https://hyperledger.github.io/composer/latest/reference/cto_language) documentation.
+
+**Transaction Logic**
+
+* The Transactions are encoded under `lib/*.js` with JavaScript (JS), one of the most popular programming languages.
+* These files define the actual logic to execute the Transactions defined in the `*.cto` files.
+* They can interact with Participant Registries and Asset Registries to create, update or delete instances of Participants and Assets.
+```
+async function sellTuna(tx) {
+    // Get asset registry for Tuna
+    const tunaRegistry = await getAssetRegistry(NS + '.Tuna');
+    [...]
+    await tunaRegistry.update(tx.tuna);
+}
+```
+
+**Queries**
+
+* The Query language helps to define Queries to retrieve information on the blockchain using a Structured Query Language (SQL) type interface.
+* For instance, the snippet below can retrieve tuna owned by a specific participant: 
+```
+query getTunaByParticipant {
+   description: "List tuna owned by specific 'owner'"
+   statement:
+       SELECT org.tuna.Tuna
+           WHERE (owner == _$owner)
+               ORDER BY [catchTime ASC]
+}
+```
+
+**Access Control Rules**
+
+* The Access Control language enables rule definition for accessing Assets and Transactions by different types of Participants and Identities.
+* For example, a rule may allow the owner only to transfer his own assets.
+```
+rule OnlyOwnerCanTransferTuna {
+    description: "Allow only Tuna owners to transfer the fish"
+    participant(p): "org.tuna.*"
+    operation: CREATE
+    resource(r): "org.tuna.SellTuna"
+    condition: (r.tuna.owner.getIdentifier() != p.getIdentifier())
+    action: DENY
+}
+```
+
+### Lecture 77 - Fabric Integration and Deployment
