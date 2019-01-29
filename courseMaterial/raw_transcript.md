@@ -959,4 +959,34 @@ There are resources you can check out like GitHub, Rocket Chat and others.
 You will find the links at the end of the chapter.
 Let's get into it.
 
-### Video 39 - 
+## Section 2 - Installing Hyperledger Composer
+
+### Video 39 - Technical Prerequisites for Mac OS
+
+In this video, we will install the prerequisites on a Mac.
+Let us open a terminal window.
+We first check if Xcode is installed; in our case, it is.
+If it is not installed on your computer, you will be prompted to install it in the next step.
+Now, we install the Node Version Manager, or NVM.
+You may need to reload your bash shell configuration file.
+Now, we can install the LTS version of Node.js and activate it.
+We now download and install the Docker Community Edition.
+You may need to make an account.
+We drag Docker into our Applications folder.
+Now open it...
+And login with your account.
+Check that it works by running the "hello-world" image.
+We now download the VS (Visual Studio) Code editor.
+We drag it to our Applications folder.
+And open it.
+We go to the "Extensions" section and search for "Hyperledger".
+We then install the Hyperledger Composer extension.
+Let us switch back to the terminal.
+In our bash configuration file, we tell NVM to use the LTS version of node.
+And we can now use the node package manager to install the Hyperledger Composer tools.
+After this, we download the Hyperledger Fabric development server scripts.
+We extract the files and we run downloadFabric.sh to fetch the Docker images.
+We can then start the Hyperledger Fabric development server and create a PeerAdmin identity card.
+Finally, we start the Hyperledger Composer Playground which we will use in a subsequent video.
+
+### Video 40 - 

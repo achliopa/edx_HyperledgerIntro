@@ -809,3 +809,138 @@ rule OnlyOwnerCanTransferTuna {
 ```
 
 ### Lecture 77 - Fabric Integration and Deployment
+
+* **Identities** : Composer also integrates a system for managing Identities through the use of ID cards, which are mapped to a participants of the Business Network. Using the Identity, the user of the Business Network can operate as that participant.
+* **Connection Profile** : The Connection Profile is a JSON document that provides the information necessary to connect to a system (e.g. Hyperledger Fabric instance including CA, orderers, and peers).
+* **Business Network Cards** : Business Network Cards map all the above, combining Identities, Connection Profiles and Business Network metadata. They simplify the process of connecting to a Business Network.
+
+### Lecture 78 - Deployment and Test
+
+* **Composer Playground** : Composer Playground is a web application that provides a simple development and test environment for the Business Network.
+* **REST Server** : The REST Server provided by Hyperledger Composer allows exposing the blockchain’s Participants, Assets, Transactions and Queries with a transparent Application Programming Interface (API). This makes it easy to integrate programmatic access to the blockchain and to connect it to web or mobile application.
+
+## Section 3 - Installing Hyperledger Composer
+
+### Lecture 79 - Technical Prerequisites: Ubuntu (Linux Virtual Machine)
+
+* To install Hyperledger Composer, you will need a UNIX-based operating system, for instance, Linux or Mac OS X.
+* We recommend using Ubuntu Linux 16.04 on a Virtual Machine (VM), even if you have a UNIX OS locally, as this gives you a clean environment that avoids errors and where you can experiment.
+* Ubuntu can be easily installed on either: your local computer (e.g. using VirtualBox), or the cloud (e.g. through providers such as AWS, Azure, GCP, Digital Ocean or BlueMix). Cloud providers often provide free credits or have plans enabling free usage of small VMs
+* On your local machine, we recommend you have an editor featuring a plugin for Hyperledger Composer. Two such editors exist at the time this course was created:
+	* Atom
+	* VS Code
+	* Sublime
+* These will enable you to more easily work using the Hyperledger Composer extension.
+* Connect to the command line of your virtual machine (e.g. by using SSH).
+* Download and install the prerequisites:
+```
+curl -O https://hyperledger.github.io/composer/latest/prereqs-ubuntu.sh
+chmod u+x prereqs-ubuntu.sh
+./prereqs-ubuntu.sh
+```
+* You should be able to now call the npm and docker commands. If you have issues running either of these on Ubuntu, attempt logging out of the VM and logging back in.
+* We will use our vagrant ubuntu vm
+```
+cd workspace/vms/ubuntu
+vagrant up
+vagrant ssh
+```
+
+### Lecture 80 - Installing Hyperledger Composer Components
+
+* You will now need to install the Hyperledger Composer components:
+	* Install the Composer Command Line Interface (CLI): `npm install -g composer-cli`
+	* Install the Composer REST Server: `npm install -g composer-rest-server`
+	* Install Composer Playground: `npm install -g  composer-playground`
+	* Install Yeoman (it will enable you to create empty or populated sample blockchain networks and web applications):	`npm install -g yo`
+	* Install the Hyperledger Composer generator for Yeoman: `npm install -g generator-hyperledger-composer`
+
+### Lecture 81 - Installing Hyperledger Fabric Development Server
+
+* Install the Hyperledger Fabric development server, which will act as the backend for your Hyperledger Composer work:
+```
+mkdir ~/fabric-tools && cd ~/fabric-tools
+curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.zip
+unzip fabric-dev-servers.zip
+```
+* Download the Docker images for the Hyperledger Fabric components: `./downloadFabric.sh`
+
+### Lecture 82 - Starting Hyperledger Fabric and Composer Playground
+
+* Inside the fabric-tools folder, start the Docker images that comprise the Hyperledger Fabric network: `./startFabric.sh`
+* Create a Hyperledger Fabric peer administrator identity for your networks: `/createPeerAdminCard.sh`
+* Start the Composer Playground, which will run on port 8080 of the VM: `composer-playground`
+
+## Section 3 - Writing and Deploying a Business Network
+
+### Lecture 83 - Overview of the Tuna Business Network
+
+* As shown previously, we will implement a simple network to track the movement of Tuna fish. The network we will build maintains a single system where fishers, restaurant owners and regulators interact.
+* Each Participant is able to access and work upon information about Tuna fish.
+* Importantly, the blockchain enables this to happen in a way that is immutable and distributed, while enabling a degree of transparency and oversight not easily implementable in a centralized database.
+
+### Lecture 84 - Steps Overview
+
+* In order to create and use the tuna-network Business Network, we will cover the following steps:
+	* Creating an empty network
+	* Defining Participants
+	* Defining Assets and Transactions
+	* Developing Transaction logic
+	* Developing Queries
+	* Defining Access Control rules
+	* Building and starting the Business Network
+	* Deploying onto Hyperledger Fabric
+	* Testing on the Composer Playground
+	* Running the Composer REST Server.
+* The tuna-network Business Network can be downloaded from this [repository](https://github.com/hyperledger/education/tree/master/LFS171x/composer-material)
+
+### Lecture 85 - Creating an Empty Network
+
+* Use Yeoman to create an empty network, by running:
+```
+yo hyperledger-composer:businessnetwork
+```
+* Then answer the questions that are posed:
+```
+? Business network name: tuna-network
+? Description: Hyperledger Composer network for Tuna tracking
+? Author name:  Alejandro (Sasha) Vicente Grabovetsky & Nicola Paoli
+? Author email: sasha@aid.technology, nicola@aid.technology
+? License: Apache-2.0
+? Namespace: org.tuna
+? Do you want to generate an empty template network? Yes: generate an empty template network
+```
+
+### Lecture 86 - Defining Participants
+
+* Participants are defined under the models/org.tuna.cto file.
+* Start by defining a namespace: `namespace org.tuna`
+* Then, create an abstract Participant for an Individual (all participants will inherit the properties from it):
+```
+abstract participant Individual identified by id {
+    o String id
+    o String name
+    o Address address
+}
+```
+* To fill the property Address of the individual, you can create a Concept. Note that postCode should have a specific format that can be validated using a regular expression (here we specify a Dutch post code, which is comprised by four numbers followed by an optional space and two capital letters):
+```
+concept Address {
+    o String addressLine
+    o String locality
+    o String postCode regex=/\d{4}[ ]?[A-Z]{2}/
+}
+```
+* Finally, define the Fisher and RestaurantOwner, which extend the Individual and the Regulator:
+```
+participant Fisher extends Individual {
+    o String licenseNumber
+}
+participant RestaurantOwner extends Individual {
+    o String restaurantName
+}
+participant Regulator identified by id {
+    o String id
+    o String name
+}
+```
