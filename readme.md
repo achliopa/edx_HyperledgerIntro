@@ -639,3 +639,78 @@ source ~/.profile
 * Step 4: Each peer verifies the proposal’s contents (stateful validation) in the Simulator and creates a block which consists only of verified transactions. This block is then sent to the consensus gate which performs YAC consensus logic.
 * Step 5: An ordered list of peers is determined, and a leader is elected based on the YAC consensus logic. Each peer casts a vote by signing and sending their proposed block to the leader.
 * Step 6: If the leader receives enough signed proposed blocks (i.e. more than two thirds of the peers), then it starts to send a commit message, indicating that this block should be applied to the chain of each peer participating in the consensus. Once the commit message has been sent, the proposed block becomes the next block in the chain of every peer via the synchronizer.
+
+### Lecure 66 - YAC (Yet Another Consensus) - Consensus Functions
+
+* Hyperledger Iroha currently implements a consensus algorithm called YAC (Yet Another Consensus), which is based on voting for block hash. Consensus involves taking blocks after they have been validated, collaborating with other blocks to decide on commit, and propagating commits between peers. The YAC consensus performs two functions: ordering and consensus.
+* Ordering is responsible for ordering all transactions, packaging them into proposals, and sending them to peers in the network. The ordering service is an endpoint for setting an order of transactions and their broadcast (in a form of proposal). Ordering is not responsible for performing stateful validation of transactions.
+* Note: Currently, the ordering service is a single point of failure that does the ordering, and, therefore, Hyperledger Iroha is neither crash fault-tolerant, nor byzantine fault-tolerant.
+* Consensus is responsible for agreement on blocks based on the same proposal.
+* Validation is an important part of the transaction flow, however it is separate from the consensus process.
+
+### Lecture 67 - YAC - Steps to Successful Consensus
+
+* Step 1: The ordering service shares a proposal to all peers. A proposal is an unsigned block created and shared to peers in the network by the ordering service. It contains a batch of ordered transactions.
+* Step 2: Peers calculate the hash of a verified proposal and sign it. The resulting <Hash, Signature> tuple is called a vote.
+* Step 3: Based on the hashes created in the previous step, each peer computes an ordering list or order of peers. To do this, the ordering function will need to have knowledge of all the peers voting in the network, and is based on the hash of the proposed block. The first peer in the list is called the leader. The leader is responsible for collecting votes from other peers and sending the commit message.
+* Step 4: Each peer votes. The leader collects all the votes and determines the supermajority of votes for a certain hash. The leader sends a commit message that contains the votes of the committing block. This response is called a commit.
+* Step 5: After receiving the commit, the peers verify the commit and apply the block to the ledger. At this point, consensus is complete.
+
+### Lecture 68 - YAC - Failure to Reach Consensus
+
+* We have just covered the steps needed to reach successful consensus, but there are also points in which failure may occur. Next, we will cover a couple of the failure cases: broken leader and bad transactions from the ordering service.
+* In the case of a broken leader, the leader may act unfairly in the collection of votes, or it takes the leader too long to respond with a commit. In such situations, other peers set a time for receiving a commit message from the leader. If the timer expires, the next peer in the order list becomes the new leader.
+* In the case of bad transactions from the ordering service, the ordering service may forward transactions that do not pass stateless validation. To rectify this, peers should remove those transactions from the proposal, and further compute the hash from the rest of the transactions in the proposal.
+
+### Lecture 69 - Mobile Libraries
+
+* One of the most defining characteristics of Hyperledger Iroha is its focus on providing mobile libraries.
+* A major goal with Hyperledger Iroha is creating a distributed ledger system that can be easily utilized by applications. In order to accomplish this, Hyperledger Iroha offers open source software libraries for iOS, Android, and Javascript. These libraries allow for simple compatibility with not only Hyperledger Iroha, but also, potentially, with other networks through flexible API functions.
+* If you would like to take a look, these libraries are all open source, and available on Github:
+	* Android: [github repo](https://github.com/hyperledger/iroha-android)
+	* iOS: [github repo](https://github.com/hyperledger/iroha-ios)
+
+### Lecture 70 - Relationship to Hyperledger Fabric and Hyperledger Sawtooth
+
+* One of the main goals at Hyperledger in the future is to have less disjointed projects, and more libraries that can be used together as components. With that vision in mind, Hyperledger Iroha wants to eventually provide the following C++ components that can be used by other Hyperledger projects:
+	* YAC consensus library
+	* Ed25519 digital signature library
+	* SHA-3 hashing library
+	* Iroha transaction serialization library
+	* P2P communication library
+	* iOS library
+	* Android library
+	* JavaScript library
+	* Blockchain explorer/data visualization suite.
+
+## Section 2 - Joining the Hyperledger Iroha Community
+
+### Lecture 71 - Joining the Hyperledger Iroha Community on GitHub
+
+* Hyperledger Iroha is an open source project where ideas and code can be publicly discussed, created, and reviewed. There are many ways to join the Hyperledger Iroha community, and we will share with you some of the ways to get involved, either from a technical standpoint, or from an ideas/issues creation perspective.
+* You can get involved with the Hyperledger Iroha community on GitHub. All code available on GitHub is forkable and viewable:
+	* [iroha](https://github.com/hyperledger/iroha)
+	* [iroha-ios](https://github.com/hyperledger/iroha-ios)
+	* [iroha-android](https://github.com/hyperledger/iroha-android)
+	* [iroha-javascript](https://github.com/hyperledger/iroha-javascript)
+	* [iroha-python](https://github.com/hyperledger/iroha-python)
+	* [iroha-scala](https://github.com/hyperledger/iroha-scala)
+	* [iroha-dotnet](https://github.com/hyperledger/iroha-dotnet)
+	* [iroha-api](https://github.com/hyperledger/iroha-api)
+
+### Lecture 72 - Joining the Hyperledger Iroha Community via Rocket.Chat and Mailing Lists
+
+* You can join the live conversations on Rocket.Chat (which is an alternative to Slack), using your Linux Foundation ID:
+	* [iroha](https://chat.hyperledger.org/channel/iroha)
+	* [iroha-smartcontracts](https://chat.hyperledger.org/channel/iroha-smartcontracts)
+* Another option is to join the mailing list(s) for technical discussions and announcements: [hyperledger-iroha](https://lists.hyperledger.org/mailman/listinfo/hyperledger-iroha.)
+
+### Lec5ture 73 - Iroha API Documentation
+
+* The Hyperledger Iroha team has been actively working on creating API documents. If you are interested in taking a look and testing for yourself, you can visit [github docs](https://hyperledger.github.io/iroha-api/#overview.)
+
+# Chapter 6 - Introduction to Hyperledger Composer
+
+## Section 1 - Scenario
+
+### Lecture 74 - 

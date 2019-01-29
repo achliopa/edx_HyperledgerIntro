@@ -873,4 +873,90 @@ Perhaps the most defining characteristic of Hyperledger Iroha is its ability to 
 The open source iOS Android and JavaScript libraries allow for developers to conveniently create functions to perform common operations.
 Good luck, and let's get into it!
 
-### Video 36 - 
+### Video 36 - Discussing Hyperledger Iroha with Makoto Takemiya
+
+Hi! I'm Robert Schwentker, and this is "Introduction to Hyperledger".
+Today, we'll be talking about Iroha.
+Hi! I'm Makoto Takemiya, the Co-CEO and Co-Founder of Soramitsu. We are the original developers for Iroha.
+We created Iroha last summer, in 2016,
+and then, in 2016 in the fall, we presented it to the Hyperledger Project.
+It was accepted in October as an incubation project.
+What is Iroha?
+Iroha is a distributed ledger platform.
+We created it to be as simple as possible for developers to use, and also, to be highly responsive for mobile and other user-facing applications.
+So, other projects under the Hyperledger umbrella, they focus on enterprises or enterprise systems.
+We're focused more on the user-facing applications.
+What distinguishes Iroha from Fabric?
+So, Fabric is a really large and complex system, and it's great for enterprises that want to manage many applications on a distributed ledger, or even conglomerates of many companies.
+Iroha, it's really focused much more on companies or consortia creating applications that users can use.
+So, really, it's focused on the end-user, and creating applications that are as fast and responsive as possible.
+Can I use Iroha with Fabric?
+In the future, we really want to make that happen.
+So, there's lots of research being done in the field of inter-ledger transactions, and two way pegs, and things like that, sidechains,
+and there's a lot of really interesting research being done in that field, so we want to eventually incorporate that into Iroha.
+Hopefully, by the end of this year, 2017, we will see.
+What are some of the interesting libraries you have for Iroha?
+So, we have the core system. This is called Iroha on GitHub.
+We also have different libraries to help application developers.
+So, we have an Android library, we have an iOS library, and a Javascript library.
+Actually, someone recently made a Scala library.
+And we also have a Python library, as well.
+So, these are different libraries, or SDKs, that developers can use to quickly make applications,
+and just to take out some of the guess work, so they don't make basic mistakes.
+What do you think is one of the most interesting applications built on top of Iroha?
+Right now? At this point, there's not too many applications built.
+We did have a hackathon at the beginning of March in 2016, where, you know, six teams kind of built different applications,
+and one of the cool applications was a kind of decentralized library, like book lending type, and the cool thing about that was,
+you don't have to return a book to the library every time, you can just do a peer-to-peer, and give the book to your friend, your friend scans the QR code,
+and then, the library can keep track of who has this book at any time.
+And those are really interesting use cases, I think.
+What do you think is a use case that could scale up, would be very interesting for a group to build on Iroha?
+So, we're really interested in things like digital currencies and settlement.
+So, actually, just recently [December 2016], we started a project at the University of Izu, to create a campus currency, that's useful in the cafeteria on campus and also at the store,
+and, right now, it's just in the test phase, but it's really... if we could build something where we can expand that to the surrounding economic around all this...
+so if we can do that, you know, it can scale to something that thousands, or tens of thousands of people can use every day.
+From a business person's perspective, what's most compelling about Iroha?
+What's most compelling is probably, I think, our permission model.
+So, a lot of the systems, up to this point, haven't really given too much thought into assistive administration or to the different realities associated with that.
+Yet, the concept of the root user group, and then, also, domains, that manage who can create assets, who can transfer assets, different things like that,
+so, that's something that can allow you to fine-tune the administration and guarantee security of asset management.
+If you look a couple of years into the future, how would you imagine Iroha has evolved?
+So, yeah, in two years... I think what we'll see is in the Hyperledger Project, instead of having many different, you know,  monolithic silos of different projects,
+like Fabric, or Iroha, or Sawtooth Lake, I think we'll see much more collaboration between them.
+So, Iroha will probably be a system that kind of has a protocol that, you know, carries on our philosophy of making things really simple, and be responsive,
+but, at the same time, can operate with the other projects in the systems, as well, or even systems like Bitcoin, for instance.
+Bitcoin is successful in its use case, being an open system that anyone can join, so it makes sense to try to build protocols to interoperate with it.
+So, interoperability is, I think, the main go within the next two years.
+Great! Thanks very much, Makoto!
+Thanks!
+
+## Chapter Summary
+
+### Video 37 -  Conclusions (Alexandra Groetsema)
+
+Congratulations! You've reached the end of the Hyperledger Iroha chapter.
+We hope you feel more comfortable with Hyperledger Iroha and are interested in implementing this in your own distributed ledger solution.
+If you would like to get more involved with this open source project, feel free to join the discussions on Rocket Chat, and create issues on GitHub.
+Stay tuned for another course that will give a more in-depth look at Hyperledger Iroha in the near future.
+See you in the next chapter.
+
+# Chapter 6 - Introduction to Hyperledger Composer
+
+### Video 38 - Introduction
+
+Hello Everyone! I'm Nicola and I'm Sasha. We are the content creators for the Hyperledger Composer chapter.
+In this chapter, we will guide [you] through a demo scenario to highlight the key components of Hyperledger Composer.
+Hyperledger composer is a toolset and framework that has been designed to make it easier to prototype and integrate blockchain applications with existing business systems.
+In Hyperledger Composer you can develop and deploy a full-fledged blockchain network,
+and use most of the functionality available to frameworks like Hyperledger Fabric.
+Hyperledger Composer provides domain-specific languages for modeling, quering, and access control that simplify the development.
+Also, visual components like Playground are helpful to communicate and visualize a structure, and to test the interactions over the network.
+Then, starting from the actual business requirement, technical and business individuals can work together to build blockchain applications using Hyperledger Composer.
+Today Composer works with a Hyperledger Fabric blockchain framework.
+However, it has been designed with a view to support other frameworks down the road, such as Sawtooth or Iroha.
+As you work through this section, you may want to think more about Hyperledger Composer.
+There are resources you can check out like GitHub, Rocket Chat and others.
+You will find the links at the end of the chapter.
+Let's get into it.
+
+### Video 39 - 
