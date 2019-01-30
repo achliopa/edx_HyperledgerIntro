@@ -1011,4 +1011,65 @@ To enable the chaincode, we use the "start" command in the Composer CLI.
 Then, we import the network card which will enable us to connect to our business network.
 The simplest operation we can do is to ping the network to ensure it is operational.
 
-### Video 41 - 
+### Video 41 - Testing on the Composer Playground
+
+In this video, we will learn about the Hyperledger Composer Playground.
+Let's check out the Playground we started in the prerequisites video by navigating to localhost:8080 in a web browser.
+You can connect to the business network we created.
+Here, you can browse a readme.md file, the model file, logic file, permission file, and query file.
+Let's switch to the test tab to run some transactions.
+We start by creating a new Fisher participant - Alice.
+Notice the field validation of working on the postal code.
+Now, we can create Bob, our Restaurant Owner.
+And Karla, our Regulator.
+We can also create a Tuna Fish Asset.
+Notice the range validator for the tuna weight.
+Also note that we specify its owner to be Alice, the Fisher.
+Having our Participants and Assets, we can run a "SellTuna" transaction to transfer it to Bob.
+As you can see, the tuna now has a new owner.
+Finally, we can browse all the transactions we have performed.
+
+### Video 42 - Running the Composer REST Server
+
+In this video, we will learn about the Hyperledger Composer REST server.
+Let's start the Composer REST server.
+We specify our tuna business network card and press "ENTER" to select the default options for the remaining arguments.
+We navigate to localhost:3000 in a web browser to access the REST server explorer.
+Here, we can view the actions for a participant, such as a Fisher.
+These include typical HTTP verbs, such as "GET", "POST", "PUT", and "DELETE".
+Let us retrieve a list of Fisher objects.
+Naturally, we see Alice who we created when using the Playground.
+We can do the very same thing with our Regulators, and with our Restaurant Owners, and with Assets like tuna.
+Importantly, we can also run queries on the data.
+For instance, let us find all the tuna that is owned by Bob, our Restaurant Owner.
+Finally, the "System" tab contains API paths related to identity, the Historian, and allows us to ping the network.
+Let's try it out.
+
+## Chapter Summary
+
+### Video 43 - 
+
+Congratulation! You've reached the end of the Hyperledger Composer chapter.
+You should now have a solid basis to try out Hyperledger Composer to mock-up a Proof of Concept or build a project of your own.
+We hope that you will get involved in the community, either on Rocket Chat or the mailing lists, or contribute to the codebase on GitHub.
+Do stay tuned for another course that will give you an in-depth look at all advanced feature of Hyperledger Composer in the future.
+This is Nicola and Sasha signing out.
+See you later!
+
+# Chapter 7 - Hyperledger Indy
+
+## Chapter Introduction
+
+In this chapter, you will learn about Hyperledger Indy; a blockchain-based system that is quite different from the other Hyperledger projects we discuss in this course. Where the other projects are general purpose blockchain systems (they can be used in many situations), Hyperledger Indy is used for just one purpose - and it’s a big one! Indy is all about identity on the Internet. It’s about being able to prove to others who you are and you being certain who they are.
+
+What’s the big deal about identity? Well, when the Internet was first created, all of the computers that were connecting to one another were "trusted". The number of systems was small and the people running those systems knew each other so they didn’t need mechanisms to know who was sending what data between the systems. As the number of systems on the Internet grew (and grew and grew…), that trust quickly diminished and the first of many mechanisms were added to systems to identify who is contacting whom. Unfortunately, the problem has never really been solved. The most common (and universally hated) system, that of user IDs and passwords, is fraught with problems. The resulting lack of certainty of who is on the other keyboard has led to the loss of billions from hacks, data breaches, identity theft, scams and more. Further, that same lack of certainty has made many types of business transactions on the Internet impossible - the risk is just too high.
+
+Hyperledger Indy has been created to add an identity layer to the Internet using a mechanism that is easy to use, enables online trust, and enhances privacy. It’s a big goal that is of vital importance to everyone on the Internet. And, it’s a goal that has recently become realizable with the advent of blockchain.
+
+In this chapter, we’ll look in more detail at the identity problem and how Hyperledger Indy uses Decentralized Identifiers (DIDs) and Verifiable Credentials to add identity as a core component of the Internet. We’ll look at the blockchain elements of Hyperledger Indy, comparing Indy’s approach to blockchain with the other systems we’ve looked at in this course.
+
+With that background, we’ll go through a couple of Indy demonstrations - a video showing DIDs and Verifiable Credentials being used, and running a local instance of Indy that demonstrates Indy’s software Agents communicating to prove who’s who on the Internet. In doing that, we’ll dig into to a question that is important to everyone that looks into Indy (and other blockchains) - what goes on the ledger?
+
+After covering all of that, we’ll wrap up with information on how you can learn more, and possibly contribute, to the Hyperledger Indy project.
+
+### Video 44 - 

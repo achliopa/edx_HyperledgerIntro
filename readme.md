@@ -1114,3 +1114,34 @@ composer card import --file admin@tuna-network.card
 composer network ping --card admin@tuna-network
 ```
 * This should show that we can connect to the network.
+
+### Lecture 93 - Testing on the Composer Playground
+
+* Once you have the network deployed, you can access the Composer Playground started in the previous unit by accessing **http://localhost:8080** (or the port :8080 of the Ubuntu Virtual Machine) in a web browser.
+* You can also import the .bna files directly in Composer Playground to test the Business Network.
+
+### Lecture 94 - Running the Composer REST Server
+
+* You can also run the REST server to connect to the deployed Business Network and expose resources and transactions. `composer-rest-server -c admin@tuna-network -n never -w true`
+* We can now access **http://localhost:3000/** to explore the Composer REST API.
+
+## Section 4 - Joining Hyperledger Composer Community
+
+### Lecture 95 - Learning More About Hyperledger Composer
+
+* The Hyperledger Composer project page provides [links to code, documentation, examples and latests news](https://www.hyperledger.org/projects/composer).
+* The full documentation can be found [here](https://hyperledger.github.io/composer/latest/). It is a detailed, well-organized and regularly updated go-to resource if you seek more information on Hyperledger Composer.
+
+### Lecture 96 - Community Meetings and Mailing List
+
+* The community mailing list for Hyperledger Composer can be found [here](https://lists.hyperledger.org/g/composer).
+To find out when the next Hyperledger Composer meeting is taking place, navigate to the [Wiki page](https://github.com/hyperledger/composer/wiki/NextCommunityCall).
+The full list of meetings within the Hyperledger community is provided [here](https://calendar.google.com/calendar/embed?src=linuxfoundation.org_nf9u64g9k9rvd9f8vp4vur23b0%40group.calendar.google.com&ctz=UTC).
+
+### Lecture 97 - Rocket.Chat and GitHub
+
+* Technical questions are often discussed on the Rocket.Chat (similar to Slack), on the [#composer channel](https://chat.hyperledger.org/channel/composer).
+* The official repository for Composer is on [GitHub](https://github.com/hyperledger/composer). At the time this course was created, it features weekly releases, and is the best place to file issues with the code and to add your own technical contributions through pull requests.
+* Business Network examples can be found [here](https://github.com/hyperledger/composer-sample-networks).
+
+# Chapter 7 - Hyperledger Indy
