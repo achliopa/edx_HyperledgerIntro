@@ -913,7 +913,7 @@ yo hyperledger-composer:businessnetwork
 
 ### Lecture 86 - Defining Participants
 
-* Participants are defined under the models/org.tuna.cto file.
+* Participants are defined under the *models/org.tuna.cto* file.
 * Start by defining a namespace: `namespace org.tuna`
 * Then, create an abstract Participant for an Individual (all participants will inherit the properties from it):
 ```
@@ -944,3 +944,173 @@ participant Regulator identified by id {
     o String name
 }
 ```
+
+### Lecture 87 - Defining Assets and Transactions
+
+* Assets and Transactions are also defined under the *models/org.tuna.cto* file. In tuna-network, the Asset is represented by the Tuna, which is defined as follows:
+```
+asset Tuna identified by tunaId {
+    o String tunaId
+    o Integer weight range=[500, 1000000]
+    o FishStatus status default="CAUGHT"
+    o DateTime catchTime
+    --> Individual owner
+}
+```
+* The Tuna asset is uniquely identified by an ID. It also has a weight, which is limited between 500 grams and 1 million grams (a ton). The largest tuna rarely exceeds 800 kg (approximately 1763 pounds).
+* To specify the Status of the Tuna, that can be either CAUGHT or PURCHASED, you can define an enumerated type Enum, which specifies a type that can assume a limited number of values:
+```
+enum FishStatus {
+    o CAUGHT
+    o PURCHASED
+}
+```
+* Then, define the Transaction, to change the ownership of the Tuna from a Fisher to a RestaurantOwner:
+```
+transaction SellTuna {
+    --> Tuna tuna
+    --> RestaurantOwner restaurantOwner
+}
+```
+* Finally, define the Event to generate after the SellTuna transaction is executed:
+```
+event TunaSale {
+    o String tunaId
+    o String restaurantName
+}
+```
+
+### Lecture 88 - Developing Transaction Logic
+
+* The Transaction logic is specified in the file *lib/logic.js*.
+* Start by defining the same namespace specified in the modeling language file:
+```
+'use strict';
+/**
+ * Defining the namespace for the business network
+ */
+const NS = 'org.tuna';
+```
+* The Transaction logic is defined in a function that accepts the Transaction SellTuna as input parameter:
+```
+/**
+* Transfer tuna from one owner to another
+* @param {org.tuna.SellTuna} tx - The transferTuna transaction
+* @transaction
+*/
+async function sellTuna(tx) {
+```	
+* Next, the registries related to the Asset Tuna and the Participant RestaurantOwner are instantiated:
+```
+    // Get asset registry for Tuna
+    const tunaRegistry = await getAssetRegistry(NS + '.Tuna');
+
+    // Get participant registry for Individuals
+    const restaurantOwnerRegistry = await getParticipantRegistry(NS + '.RestaurantOwner');
+```    
+* Then, you have to verify that tuna actually exists:
+```
+    const tuna = await tunaRegistry.get(tx.tuna.getIdentifier());
+		// Make sure that Tuna exists
+    if (!tuna) {
+    		throw new Error(`Tuna with id ${tx.tuna.getIdentifier()} does not exist`);
+		}
+```		
+* Next, you have to confirm that the status of the Tuna is CAUGHT (this is to make sure that Tuna that was once sold cannot be sold again):
+```
+		// Make sure the tuna status is CAUGHT and not PURCHASED
+		if (tuna.status !== 'CAUGHT') {
+				throw new Error(`Tuna with id ${tx.tuna.getIdentifier()} is not in CAUGHT status`);
+		}
+```		
+* Retrieve the ID of the RestaurantOwner from the Transaction:
+```
+    // Get restaurantOwner ID
+    const restaurantOwnerId = tx.restaurantOwner.getIdentifier();
+```    
+* Next, verify that the RestaurantOwner exists:
+```
+    // Make sure that restaurantOwner exists
+    const restaurantOwner = await restaurantOwnerRegistry.get(restaurantOwnerId);
+    if (!restaurantOwner) {
+        throw new Error(`RestaurantOwner with id ${restaurantOwnerId} does not exist`);
+    }
+```    
+* Now, you can update the owner of Tuna:
+```
+    // Update tuna with new owner
+    tx.tuna.owner = tx.restaurantOwner;
+```    
+* Update status of Tuna: `tx.tuna.status = 'PURCHASED';`
+* Update record of Tuna in the Asset Registry:
+```
+    // Update the asset in the asset registry.
+    await tunaRegistry.update(tx.tuna);
+```    
+* Create the TunaSale event:
+```
+    // Create a Tuna Sale Event
+    let tunaSaleEvent = getFactory().newEvent(NS, 'TunaSale');
+    tunaSaleEvent.tunaId = tx.tuna.tunaId;
+    tunaSaleEvent.restaurantName = tx.restaurantOwner.restaurantName;
+```    
+* Finally, emit the event created:
+```
+    // Emit the Event
+    emit(tunaSaleEvent);
+}
+```
+
+### Lecture 89 - DevelopingQueries
+
+* The queries can be specified under the *queries.qry* file.
+* The query getTunaByParticipant will return all the fishes owned by a specific participant in the format of an array of Assets of type Tuna:
+```
+query getTunaByParticipant {
+    description: "List tuna owned by specific 'owner'"
+    statement:
+        SELECT org.tuna.Tuna
+            WHERE (owner == _$owner)
+                ORDER BY [catchTime ASC]
+}
+```
+
+### Lecture 90 - Defining Access Control Rules
+
+* The Access Control rules are defined in the file *permissions.acl*.
+* Adding the following rule to the top of the file, allows only the owner of tuna to execute the transaction SellTuna:
+```
+rule OnlyOwnerCanTransferTuna {
+    description: "Allow only Tuna owners to transfer the fish"
+    participant(p): "org.tuna.*"
+    operation: CREATE
+    resource(r): "org.tuna.SellTuna"
+    condition: (r.tuna.owner.getIdentifier() != p.getIdentifier())
+    action: DENY
+}
+```
+
+### Lecture 91 - Building and Starting the Business Network
+
+* Once you have created the network, you create a Business Network Archive (BNA) running the following command from the directory that you ran the Yeoman generator: `composer archive create -t dir -n .`
+* This creates the file *tuna-network@0.0.1.bna*.
+
+### Lecture 92 - Deploying onto Hyperledger Fabric
+
+* Start by installing the network onto the Hyperledger Fabric peers:
+```
+composer network install --card PeerAdmin@hlfv1 --archiveFile tuna-network@0.0.1.bna
+```
+* Then, initialize the chaincode on the Hyperledger Fabric peers:
+```
+composer network start --card PeerAdmin@hlfv1 --networkAdmin admin --networkAdminEnrollSecret adminpw --networkName tuna-network --networkVersion 0.0.1
+```
+* This creates a card that you can import:
+```
+composer card import --file admin@tuna-network.card
+```
+* And then use to access the business network:
+```
+composer network ping --card admin@tuna-network
+```
+* This should show that we can connect to the network.

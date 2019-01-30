@@ -989,4 +989,26 @@ We extract the files and we run downloadFabric.sh to fetch the Docker images.
 We can then start the Hyperledger Fabric development server and create a PeerAdmin identity card.
 Finally, we start the Hyperledger Composer Playground which we will use in a subsequent video.
 
-### Video 40 - 
+## Section 3 - Writing and Deploying a Business Network
+
+### Video 40 - Deploying onto Hyperledger Fabric
+
+In this video, we will set up a basic Hyperledger Composer business network running on Hyperledger Fabric.
+We start by creating a business network with Yeoman and the Hyperledger Composer generator.
+We fill in the required details, paying special attention to the network name and namespace.
+We also ask to generate an empty network.
+You can now create your own network or fill in the relevant files as shown in the course slides.
+For simplicity, we will simply download the network from the official Hyperledger education repository.
+Let's look at the files we have there.
+For instance, the package.json file defines the network name and version.
+It also specifies the node.js packages used.
+The org.tuna.cto file contains the modeling language definitions for Assets, Participants, and Transactions.
+And the logic file contains the Transaction Logic using Node.js.
+We also have a test script where we hold the unit tests [that] we define for our network.
+We can use the Composer CLI to create a Business Network Archive, or BNA file.
+We can then install the chaincode of the BNA onto the peers.
+To enable the chaincode, we use the "start" command in the Composer CLI.
+Then, we import the network card which will enable us to connect to our business network.
+The simplest operation we can do is to ping the network to ensure it is operational.
+
+### Video 41 - 
