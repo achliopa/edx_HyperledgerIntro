@@ -1421,3 +1421,6 @@ The full list of meetings within the Hyperledger community is provided [here](ht
 	* **Mailing list** : An Indy Mailing list is used to keep the entire community updated on happenings in the community, and to foster discussion about technical issues related to Hyperledger Indy.
 	* **GitHub Repos** : The Hyperledger Indy codebase is on [GitHub](https://github.com/hyperledger) and is available for reviewing, forking and most importantly, contributions. A list of the current Hyperledger Indy repos (as of September 2018) is provided in the earlier "Getting Started with Hyperledger Indy" section. See the Hyperledger Indy Wiki to find the latest information on the repos.
 	* **Indy meetups** : There are many in-person events (conferences, hackathons, meetups, etc.) related to Indy that happen throughout the year. Some are specific to Indy, while others are larger Hyperledger or Internet identity events. Hyperledger Indy maintains a calendar of all Hyperledger meetings, while other meetings can be found through discussions on Chat. You can also locate Hyperledger-specific meetups at the Hyperledger Meetup website.
+
+# Chapter 8 - Introduction to Hyperledger Sawtooth
+
