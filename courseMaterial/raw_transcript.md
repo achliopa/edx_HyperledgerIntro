@@ -1056,7 +1056,7 @@ Do stay tuned for another course that will give you an in-depth look at all adva
 This is Nicola and Sasha signing out.
 See you later!
 
-# Chapter 7 - Hyperledger Indy
+# Chapter 7 - Introduction to Hyperledger Indy
 
 ## Chapter Introduction
 
@@ -1072,4 +1072,22 @@ With that background, we’ll go through a couple of Indy demonstrations - a vid
 
 After covering all of that, we’ll wrap up with information on how you can learn more, and possibly contribute, to the Hyperledger Indy project.
 
-### Video 44 - 
+# Chapter 8 - Introduction to Hyperledger Sawtooth
+
+### Video 44 - Introduction to Hyperledger Sawtooth (Alexandra & Arianna Groetsema)
+
+Hi, all! Arianna and I have put together the content in the Hyperledger Sawtooth chapter.
+We are so excited to share with you how this distributed ledger works, and its defining characteristics.
+We will take you through how to set up a sample Hyperledger Sawtooth network, while introducing transaction processors, and walking you through writing your own.
+Hyperledger Sawtooth is an enterprise distributed ledger contributed by Intel, and was one of the first projects to join Linux Foundation's Hyperledger umbrella.
+We will be working with version 0.8.
+This framework is modular, scalable, with an innovative consensus model, unique support for permissioned and permissionless infrastructure,
+and the potential for incredibly large network sizes.
+Hyperledger Sawtooth allows for confidential transactions, without passing information through a central authority.
+If at any point in this chapter you want to join the Hyperledger Sawtooth community,
+there's some resources you can check out, like RocketChat, which is similar to Slack,
+a dedicated wiki page, GitHub repos, and others.
+Links to these resources can be found at the end of this chapter.
+So let's jump into this chapter!
+
+### Video 45 - 
