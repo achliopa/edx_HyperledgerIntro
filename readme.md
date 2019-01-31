@@ -1145,3 +1145,158 @@ The full list of meetings within the Hyperledger community is provided [here](ht
 * Business Network examples can be found [here](https://github.com/hyperledger/composer-sample-networks).
 
 # Chapter 7 - Hyperledger Indy
+
+## Section 1 - Identity on the Internet  
+
+### Lecture 98 - Identity on the Internet and the Real World  
+
+* The problems with identity on the Internet today come down to a single word - trust. When you are interacting online with someone, do you trust:
+	* Is the person you are connecting with online who they say they are?
+	* Are the claims they are making true?
+* As the famous New Yorker cartoon goes - *"On the Internet, nobody knows you're a dog"*. How do we handle these challenges today?
+* When we interact in the real world, we often need to "prove" who we are. To do that, we present evidence that we have about ourselves. What we present varies based on the context of the relationship. When we meet someone socially, we introduce ourselves. When we want to open a bank account, we show documents (attributes) issued by others (driver’s license, utility bill, government ID, etc.) to prove things about ourselves, such as our name, address and ID number (e.g. Social Security Number in the US).
+* In turn, those with whom we interact create an identifier for us and check that identifier when we connect again. A person remembers our name and face, and "verifies" them on our subsequent meetings ("Hi Stephen! Good to see you again!"). Our bank creates a card with an ID on it for us to use each time we return to access the bank’s services.
+* The same pattern is used online, but there are a variety of problems that occur, some obvious, some a little more subtle. Let’s go through them.
+
+### Lecture 99 - Identifiers (User IDs and Passwords)
+
+* The basic mechanism for knowing who you are on the Internet is the user ID/password combination. You register at a site and get a user ID and set a secret password that only you know, and each time you return you use that to access your account. We all know the problems with user IDs and passwords - we deal with them every day:
+	* We have too many to track - I’m aware of more than 700 user IDs I have been given
+	* Because we have so many, we often use "easy to remember" passwords that are also easy for others to guess
+	* Password recovery mechanisms (question/responses, support desks) provide avenues of attack by hackers
+	* Data breaches occur that result in our IDs and passwords being exposed and used - either by the hackers or anyone that buys them
+	* We often use the same password on many sites, and once a password is exposed, our account on others sites may also be exposed.
+* A common approach to solving the "too many passwords" problem is the use of Identity Providers (IdPs) like Facebook and Google. Smaller sites can use an IdP for authentication (user ID and password verification) and to get basic identity attributes like name and email address.
+* We also need to note that while users of websites have IDs for the site, the reverse is not the case - we don’t get an "ID and password" for the site that we can verify each time we connect. This has enabled the "phishing" techniques to become common in recent years, where users are tricked to click a link that takes them to a website that appears to be real, has a similar name, e.g. goog1e.com, but is actually fake, fooling us into reveal our user ID and password - and sometimes even our two-factor authentication code.
+
+### Lecture 100 - Identity Attributes
+
+* On almost every site, we also share other identifiers to use a service - our email and name at minimum, and depending on the nature of the service, additional information (address, credit card information, etc.). With that, we can do the only common business transaction on the Internet - buying things. Buying things has a low enough risk because sellers can generally trace to whom the purchased item is delivered, which deters widespread abuse.
+* Conducting higher trust online transactions - such as opening a bank account - is much harder. We have to provide the same information about ourselves as we would in-person. We should be able to just type it in since it is private and (in theory) only we know it. However, much of the information is relatively widely known, either because it is routinely published (e.g. name and address), or because of the many data breaches that have occurred (e.g. government ID number). Even non-identifiers that are used for verification, so-called "shared secrets", such as the value of "Line 150 from 2018 Tax Return" can be fraudulently acquired and used for targeting specific individuals.
+* An alternative is to do an online version of the in-person verification - scan and send the source documents. However, scans are very easy to forge and as such are not trusted. We should also add that paper documents used in person are increasingly easy to forge as well. That issue is actually putting at risk the "real world" identity proofing that we mentioned earlier. Verifiers, such as bank employees, have to become experts at detecting the authenticity of documents used for identity proofing.
+
+### Lecture 101 - Additional Identoty Problems
+
+* We’ve talked about a few problems with the current Internet identity approaches already - user IDs and passwords are hackable, and supposedly private information is too well known to be trusted. Here are a few more problems with the current approaches.
+
+**Unwanted Correlation** 
+
+* The use of common identifiers on so many different sites creates what is known as a correlation problem. Correlation in this context means associating without consent information about a single identity across multiple systems. The proliferation of such correlation on the Internet, driven primarily by advertising, has resulted in a massive loss of privacy for Internet users (basically - everyone). A great/horrible example of this was exposed by a data breach at the relatively unknown Florida company, Exactis. The breach was massive covering almost every American and American company (340M records total). However, the content was equally shocking - over 400 data elements per record collected from a number of sites correlating details about each person - their name, age, race, religion, size of family, etc. You can be sure that no one ever agreed to allow Exactis to collect that information. They correlated the data across many "partner" sites to collect a picture of each person - that they in turn sell to anyone willing to pay. To learn more, read "A New Data Breach May Have Exposed Personal Information of Almost Every American Adult".
+* Correlation is made possible because of the common identifiers we use online daily. Our email address is the single largest factor, since we share it on almost every site, but there are others. Each time we use the same account name on a different sites creates the possibility of correlation. When we give other identifiers about ourselves - phone number, address, government IDs, etc., firms can correlate that data across sites. Tracking cookies placed by websites and ads enable the linking of IDs across websites. Some of the new GDPR protections are designed to prevent these practices in Europe, but not so in other places. Even then, it is a legal, not a technical solution, and so remains susceptible to bad actors.
+* The Identity Providers model is also a correlation point - although in this case one given with consent. The IdP approach trades convenience (fewer user IDs/passwords) for correlation. Since the IdP is used for each login, the IdP can track your use of other sites and thus correlate your online activities - increasing their knowledge of you.
+
+**Centralized Identifiers**
+
+* The vast majority of identifiers we use today are centralized - the identifiers are provided to us and maintained by a centralized entity. That might be the government in the case of our tax ID and driver’s license, or a company for an ID we use to log into a website. A major problem with this approach is that the central authority can choose to take away that identifier at any time. This is of particular concern for those in a minority situation - a critic of a central entity, be it a government suppressing their people or a private company.
+* A second concern with central authorities controlling identifiers is that if they are compromised in some way, those identifiers can be used in malicious ways. For example, a hack of a Dutch Certificate Authority (manager of SSL Encryption Certificates) allowed supposedly secure encrypted data going across the Internet to be intercepted and accessed by the hackers. Further, since the identifiers are centralized (held in a central place), if that repository is compromised, it impacts many people.
+
+**Data Breaches**
+
+* Identity-related data is currently of particularly high value, and so large data repositories of identity data are favorite targets for hackers. This includes not only user ID and password data to enable unauthorized access to accounts, but also all of the other information we use to "prove" our identity online - name, email address, government ID, and so on. As noted, the availability of this supposedly private data makes the online use of such data impossible for high value interactions because of the risk that the person typing the data is not its owner.
+
+### Lecture 102 - Summary
+
+* So where does that leave us?
+	* User IDs/passwords are the norm, but they are a pain to use, and as a result, are very susceptible to attack. They are the best we have right now, but not a solid basis for trust. Further, IDs are one way - users don’t get an ID from a service they use.
+	* Other personal information and identifiers we have that we could otherwise use to prove our identity is not trusted because it’s impossible to tell if the data was actually issued to the person entering it. The many breaches of private identifiers make them impossible to completely trust.
+	* Since the identity attributes we could use are not trusted (they are not things only we know), we often have to resort to in-person delivery of paper documents to prove things about ourselves.
+	* The identifiers we use are correlated across sites, allowing inferences to be made about us, and exposing information we don’t intend to be shared across sites. This is annoying at the least, and can have catastrophic results in the worst case.
+	* Centralized repositories of identifiers and data about the people associated with those identifiers are targeted by hackers because the data has high value. This exacerbates the problem of not being able to trust "personal" data presented online.
+	* Centralized identifiers can be abused by those that control those identifiers. For example, they can be taken away from a subject without due process.
+* In the next section, we’ll look at the capabilities of Hyperledger Indy to reduce or eliminate these problems.
+
+## Section 2 - Internet Identity with Hyperledger Indy
+
+* The last section introduced a number of challenges with Internet identity as is provided today. In this section, we’ll show how Hyperledger Indy addresses those challenges with a new blockchain-based foundational Identity layer.
+
+### Lecture 103 - Decentralized Identifiers (DIDs)
+
+* A foundational feature of Indy is support for the emerging W3C standard for Decentralized Identifiers (DIDs). DIDs are globally unique identifiers that are created by their owner, independent of any central authority. Each DID has associated with it one or more public keys created by the DID owner (and the owner holds the corresponding private keys), and one or more endpoints - addresses where messages can be delivered for that identity. A DID can be uniquely resolved (like a URL) to return the data (public keys and endpoints) associated with the DID. An example of a DID is displayed below.
+* Indy uses DIDs to establish connections between two identities, such as a user and a service’s website, so that they can securely communicate. Further, the expectation is that an entity - e.g. you - will have many, many DIDs - one for each relationship you have with another entity. Think of each DID like a user ID/password pair, but one that is backed with strong cryptography in the form of public/private keypairs. As well, note that both sides of a relationship provide a DID for the other to use to communicate with them.
+* The image below show three entities, Alice, Bob and a Bank that both Alice and Bob use. For each entity, we see the various DIDs they have created for their relationships. We've also highlighted the DIDs that they have exchanged with each other - Alice's for Bob, Alice's for the Bank, and so on.
+* **Creating and Using DIDs** : Here’s an example of how DIDs are used: A user registers for a service’s website by creating and giving the service a new, never-used-before DID, and receives back from the service the same thing - a new, never-used-before DID created by the service. Each records the "relationship" DIDs so that when one wants to communicate with the other, they have an endpoint to send the message, and a public key to end-to-end encrypt the message. Later, when the user returns to the website to login, the user and the service exchange encrypted messages to confirm that each holds the private key to decrypt the messages. On completion, the service knows it’s the user because the user used their DID, and the user knows it’s the service because the service used its DID. Neat - we’ve already addressed one of the challenges raised with today’s Internet identity - two-way verification!
+
+### Lecture 104 - Agents and Wallets
+
+* With so many DIDs floating around, it's clear that memory and bits of paper are not enough to manage all the DIDs a person creates or receives. Indy uses the term Agent to mean the software that interacts with other entities (via DIDs and more, as we'll find out), and the term Wallet as a data store for the DIDs and related information (including private keys and more). For example, a person might have a mobile Agent app on their smart devices, while an organization might have an enterprise Agent running on a cloud server. All Agents have a secure Wallet for storing identity data.
+* For those familiar with a password manager like 1Password or LastPass, a personal Agent Wallet is similar - there is a name for each relationship and associated data. However, unlike password managers that use things like your copy/paste clipboard for user IDs and passwords and "screen-scrape" applications and websites, Agents communicate directly with Agents to accomplish identity-related tasks.
+* The picture below is an example of some communicating Indy Agents. The Edge Agents are handled by the identity owners themselves - in this case a consumer and an enterprise. The cloud Agents facilitate the messaging by, for example, providing a permanent endpoint for a device that may or may not be online at the time messages are being received.
+
+### Lecture 105 - Indy Public Ledger
+
+* The term "decentralized" is a hint that Indy uses blockchain technology. The image presented on the previous page shows how the Agents send requests to the ledger to read and write DID (and other) information. An identity (e.g. a person, organization or thing) creating a DID can publish that DID to an Indy immutable public ledger. The "DID" (a globally unique string) can then be looked up ("resolved") on the public ledger, and the information associated with the DID (called the "DID Doc") return the public key(s) and endpoint(s) associated with the DID. The private keys associated with the public keys are held by the owner of the DID in their Wallet. As long as the private keys are protected (a non-trivial, but manageable challenge), the DID cannot be used by anyone else. Using a decentralized system based on blockchain technology empowers users to securely publish their DIDs without a central authority. For the more technically inclined, the core of Indy is what is know known as a [Decentralized Key Management System (DKMS)](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust-spring2017/blob/master/topics-and-advance-readings/dkms-decentralized-key-mgmt-system.md) - a reliable way to share public keys without a central authority.
+
+### Lecture 106 - How DIDs Help
+
+* DIDs address a whole lot of the problems we talked about in the last section with Identifiers:
+	* Users define their own DIDs and give that DID to a service to use in identifying them. This addresses the problems created by centralized identifiers - DIDs are controlled by the user.
+	* Agents and Wallets act like password managers, making it easy for users to manage their access to sites and services.
+	* Since a user uses a different DID for each service, their identity cannot be correlated across services.
+	* Since the user and service can communicate using the DIDs, there is no need for a user to provide an email address - the primary mechanism used today for correlating users.
+	* The service gives the user a DID for the service as well as the other way around, so the user can be certain they are talking to the service.
+* We’re part way through the solution - DIDs that are controlled by their owning entities and shared to establish relationships between entities. But how does each party know who it is that created and controls the DID? That’s where the next part of the Hyperledger Indy story comes in - Verifiable Credentials.
+
+### Lecture 107 - Verifiable Credentials
+
+* Indy also supports a second exciting, emerging W3C standard - Verifiable Credentials (VCs). It enables a trusted way to provide identity attributes about ourselves.
+* Credentials are things like driver’s licenses, passports, or university degrees that are given to us from an issuing authority that we can use to show to others when needed. VCs are digital equivalents of paper credentials that are cryptographically processed such that when we show ("prove") the claims (data elements from the credentials), the receiver ("verifier") can be certain:
+	* Who issued the claims
+	* That the claims were issued to the identity presenting them
+	* That the claims have not been tampered with (forged)
+	* That the claims’ credential has not been revoked by the issuer.
+* As the image below shows, the data flow for Verifiable Credentials is the same as with paper documents - issuers give Verifiable Credentials to the holder, and the holder can prove them to verifiers at any time.
+* The proof requests and proofs in Indy are transactions that occur between the holder of the VC and the verifier. The issuer of the VC is not involved in the proof process - a very important attribute of the VC model. We don’t want, for example, the government to know each time we use our driver's license to prove our age!
+* Verifiable Credentials and their use closely mimics that of the real world. VCs take that model and put it online, in a trusted manner.
+
+### Lecture 108 - Selective Disclosure and Zero Knowledge Proofs (ZKP)
+
+* Hyperledger Indy provides advanced features in the proving of claims. Specifically, that the claims can be selectively disclosed, meaning that just some data elements from a credential are provided in a proof. In addition, [zero-knowledge proofs](https://en.wikipedia.org/wiki/Zero-knowledge_proof) (ZKPs), a piece of cryptography magic (that we won’t detail here - but it’s fascinating) allow proving a piece of information without presenting the underlying data. A very useful example of both selective disclosure and a ZKP supported in Indy is a proof that a person is older than a given age based on a the date of birth in a VC driver's license without disclosing any other information, including name or date of birth. The image below demonstrates how that might look in an Indy-enabled app at a pub.
+* The verifier (a bartender) can confirm:
+	* The issuer was the appropriate authority
+	* The picture shows the same person presenting the Verifiable Credential
+	* The person is old enough to drink in the pub (the check mark).
+
+### Lecture 109 - Using Verifiable Credentials
+
+* The ramifications of Verifiable Credentials are dramatic, especially when combined with Indy’s advanced VC features. Here are just a few examples of how they can be used:
+	* A bank trusting only a SSN (government ID) that was issued as a VC to the holder by the appropriate government agency. Having the numbers of the ID without digital proof will have no value - reducing the value of and impact of data breaches.
+	* An employer digitally confirming the education credentials of a potential employee. The employer can programmatically investigate the issuer of the credentials to determine if they are an appropriately accredited institution. Phony degrees become useless.
+	* A person connecting with a new financial advisor can verify the credentials of the advisor with appropriate government regulator and the Better Business Bureau.
+	* Rather than typing in the same information over and over at each service (e.g. address), a person can provide a VC containing their address.
+	* A professional can prove online they have both current membership in their industry organization, and appropriate practice insurance.
+* All of these transactions are done today with increasingly unreliable paper transactions, frequently requiring face-to-face interactions. With VCs, the transactions are fast, secure and even more reliable. Further, since the subject (you!) holds the VC, you only share them as necessary to support the interaction you are trying to accomplish. The issuer of the credential has no knowledge of how and when you are using the credential. We don’t want to notify the government every time our driver’s license is used to confirm information about us.
+* Blockchain plays a key role in Indy with issuing of Verified Credentials and proofs. Since the VCs contain private information, the VCs themselves are not stored on the blockchain - they go in the Wallet of the VC holder (see image below). However, information necessary to use the VCs - the schema, the DID of the Issuer and information for proving non-revocation are all stored on the Indy blockchain. This conveniently and securely makes the information to interpret VCs available for identities to use in exchanging credentials and claims while preserving in the private wallet of the holder the personal information.
+* VCs extend the capabilities of DIDs to include features needed for building trust on the Internet:
+	* Personal information and identifiers provided to verifiers as claims in VC-based proofs can be trusted - perhaps more so than paper documents.
+	* Proofs extend paper documents capabilities by adding real time access to revocation status (without contacting the issuer), selective disclosure, and zero-knowledge proofs.
+	* Personal data is held by its owner (you!), not in identity repositories, reducing the number of high-value data targets. This also reduces the liability of the service currently holding that repository.
+	* Plain data - strings of characters that lack proof of being issued to you - will fall in value when they are no longer accepted online. This loss of value reduces the incentive for hackers stealing private data.
+
+### Lecture 110 - Trying It Out
+
+* IBM extended Hyperledger Indy software elements created through a collaboration between the Province of British Columbia and the Government of Canada and built a demo showing a person, Alice, using a series of Verifiable Credentials to:
+	* Get a transcript from her college (Faber)
+	* Apply for (and get!) a job at Acme Corp using her transcripts
+	* Get proof of employment from Acme Corp
+	* Use her proof of employment to apply for a loan at Thrift Bank.
+* For those that just want to see all of this in action, IBM (a Hyperledger member and contributor to Indy) has posted a video of the sequence on [YouTube - "IndyWorld Demo by IBM"](https://www.youtube.com/watch?v=cz-6BldajiA).
+
+### Lecture 111 - Privacy
+
+* Hyperledger Indy is all about privacy. Well-known in the identity community is the concept of Privacy by Design, a series of principles first described by Canadian Internet researcher Dr. Ann Cavoukian, and now held as a standard by privacy experts worldwide. Hyperledger Indy very much adheres to the Privacy By Design principles. We’ve mentioned most of the privacy enhancing features of Indy in the previous two sections, so we’ll just list them here:
+	* Decentralized Identifiers (DIDs) created and controlled by the owning entity
+	* The use of DIDs for each relationship, preventing cross-service correlation
+	* Peer-to-peer, end-to-end encryption from message creator to receiver
+	* Verifiable Credentials (VC) held by their owner and used only when necessary
+	* Selective disclosure of VC data - exposing only the data necessary
+	* The use of VCs without the need to contact the issuer.
+
+### Lecture 112 - Self-Sovereign Identity
+
+* A final but very important term we’ll include in this introduction to Internet identity is self-sovereign identity (SSI). The term, introduced by Christopher Allen in 2016, is the concept that people and businesses can hold their own identity data and share it as it is needed without relying on a central authority. All of the features of Hyperledger Indy we’ve talked about embody SSI concepts. As Drummond Reid, a guru in Internet identity and the Chief Trust Officer of Evernym, Inc. (the company that originally created Indy) states, SSI is a:
+
+*"lifetime, portable identity for any person, organization or thing that does not depend on any authority and can never be taken away"*.
+
+* The creators and maintainers of Hyperledger Indy strive to ensure that the software embodies the concepts of SSI now and in the future.
+
+## Section 3 - Hyperledger Indy in Context
