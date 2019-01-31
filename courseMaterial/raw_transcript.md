@@ -1090,4 +1090,119 @@ a dedicated wiki page, GitHub repos, and others.
 Links to these resources can be found at the end of this chapter.
 So let's jump into this chapter!
 
-### Video 45 - 
+## Section 1 - Addressing Illegal, Unregulated, and Unreported Tuna Fishing (Demonstrated Scenario)
+
+### Video 45 - About the Demonstrated Scenario (Alexandra & Arianna Groetsema)
+
+Hi, everyone! I hope you guys are making a big splash!
+Yeah, let's ride this wave.
+Globally, three trillion dollars are spent every year on marine coastal resources and industries.
+Marine fisheries employ over 200 million people, from fishing, to processing, to shipping, and sales.
+As much as 40% of our oceans are heavily affected by human activities such as illegal fishing.
+Every year, five million tons of tuna, with an estimated value of 40 billion dollars, are sold.
+This is a huge industry, and one that could benefit greatly from innovation and transparency.
+With the tuna 20/20 traceability declaration in mind, our goal is to eliminate illegal, unreported, and unregulated fishing.
+We will use Hyperledger Sawtooth to bring transparency and clarity to a real world example: the supply chain of tuna fishing.
+We will be describing how tuna fishing can be improved, starting from the source, fishermen Sarah, and the process by which her tuna ends up at Miriam's restaurant.
+In between, we'll have other parties involved, such as the tuna processor and regulators, who will verify the validity of the data, and sustainability of the tuna catches.
+We will be using Hyperledger Sawtooth framework to keep track of each part of this process.
+Now, as you read through this demonstrated scenario, pay attention to  the hierarchy of actors within the network, and how these actors interact with one another.
+When Sarah catches tuna from a designated ocean area, she labels each and takes note of its provenance, and passes that along.
+In a Sawtooth network, regulators, processors, and restaurateurs can confirm whether a particular shipment of tuna was sustainably and legally sourced.
+So, I hope this gives you a great start. Let's go fishing!
+
+## Section 2 - Key Components and Transaction Flow
+
+### Video 46 - Hyperledger Sawtooth Key Components (Arianna Groetsema)
+
+Hello, everybody!
+We will now be going over the architecture for Hyperledger Sawtooth.
+Like many Hyperledger frameworks, Hyperledger Sawtooth is exceptional due to its flexibility and modularity, and support for many different programming languages.
+For example, applications can bring their own consensus modules and revert to Hyperledger Sawtooth's Proof of Elapsed Time consensus algorithm when scaling,
+because, rather than relying on the capabilities of hardware, Proof of Elapsed Time is a truly random lottery system.
+that stochastically elects individual peers to execute transactions.
+Since this consensus method relies on trusted computing, as opposed to manual labor,
+Proof of Elapsed Time allows nearly limitless network scalability.
+Another modular feature is Hyperledger Sawtooth's transaction logic.
+Transaction families encapsulate business logic for the network and help define architectural differences between data control logic and application logic.
+If you're more interested in learning about what distinguishes Hyperledger Sawtooth from other frameworks,
+look to the transaction families, how to reach consensus, batching, and transaction flow modules.
+Good luck, and I'll see you next section!
+
+## Section 3 - Installing Hyperledger Sawtooth
+
+### Video 47 - Change Bringing Up a Sample Hyperledger Sawtooth Network
+
+Hi, everyone! Today, I will be walking through how to install Hyperledger Sawtooth.
+To start, if you haven't gone over Chapter 4, you might want to go back and download all the necessary technical prerequisites.
+Just to review, you will need cURL, which should be a default, if you have a Mac or Linux.
+You should have Node.js and npm, as well as Go language. And lastly, Docker and Docker Compose.
+If you are uncertain whether you have any of these, I will show you some commands to check which version you have.
+So, "node --version && npm --version".
+And, just to confirm, this will show... these commands will show whether you have it installed. It won't install it for you.
+So, we have versions for those. So, that's good.
+Now, we're going to check for Go language [go version]. Great!
+And lastly, we'll check for Docker version and Docker Compose version [docker --version && docker-compose --version].
+Great! So, we've got versions for both of those, and, if you get errors on any of these, go back to Chapter 4, and make sure you've installed everything correctly.
+So, moving on, within our GitHub repo, under Hyperledger, there's a 'sawtooth-default.yaml' file that we will need to download and run to start our example network.
+So, make sure that you have Docker running. I already have Docker running before I started this video,
+but go ahead and make sure you have that started, and work within this terminal window, and change your working directory to the same directory where your 'docker-compose' file is.
+So, to do that, and this could be different for you, but this is just where I have it, on my machine...
+Okay, so I have it in this directory [sawtooth-material], and just to make sure, I'm going to 'ls', and yes, in fact, here's our yaml file that we will be working with.
+Now, an important note: make sure you don't have anything else running on port 8080 or port 4004.
+If you do, you will get a couple of errors on some of our commands.
+Ok, now, we're ready to run 'docker-compose -f sawtooth-default.yaml up'.
+And this might take a second.
+Great! So, we see a lot of things popping up in our terminal window.
+We see 'sawtooth-validator' was created, 'sawtooth-client' was created,
+and a lot of other great stuff that you can go through on your own.
+But, this means we're in good shape.
+So, now, let that keep running, and we will open another tab, and,
+you should redirect to the same directory, which I've already done so.
+And we're gonna run the following command 'docker exec -it sawtooth-client-default bash'
+and we will see this pop up in a window [root@65e6e6681382:/#]
+You'll get a different number here, but, if you see 'root', you're in good shape.
+This means that your environment is now set up and you're ready to start experimenting with the network.
+But, let's first confirm that our validator is up and running and reachable from the client container.
+So, within this root, we're gonna run 'curl http://rest-api:8080/blocks'.
+And, hopefully, you should see this. It's a JSON object with 'data', 'batches', 'header', 'header_signatures'.
+So, this is a good sign.
+Now, lastly, let's check the connectivity from the host computer. And you can open up yet another tab in terminal.
+And, just in... whatever directory... default directory, you can run 'curl http://localhost:8080/blocks',
+and you should get the same JSON object, which means we are in good shape.
+Okay. So, we've demoed how to install, and, just for continuity sake, let's...
+So, I just CTRL+C, let's bring down our network, which is good practice.
+So I CTRL+C in our original terminal window, and, just as good practice,
+let's run the following command 'docker-compose -f sawtooth-default.yaml down'.
+That operation may have taken a little bit of time, but we can see here, all the containers were stopped and removed, and we are done.
+And, we're ready to move on to the next section.
+
+## Section 4 - Writing an Application
+
+### Video 48 - Designing an Application (Alexandra Groetsema)
+
+So far, in this chapter, we've covered the components of Hyperledger Sawtooth framework,
+including the Proof of Elapsed Time consensus algorithm, transaction families, and batches.
+We've also installed and spun up our very own test network, and gone through a demonstrated example detailing how Sawtooth is unique.
+Now, it's time to combine what we've learned into a coded example.
+Sawtooth SDKs offer transaction family developer support for Javascript, Python, C, C++, Java, and Go.
+To create our simple application, we'll use the Javascript SDK,
+which provides client functionality and supplies the process of making changes to the blockchain.
+If you'd like to delve more into these heavy details, technical details, stay tuned for a future course on Sawtooth.
+Now, before we dig into this section, I'd like to give a brief overview.
+Building an application requires a few important steps:
+first, defining assets that will reside in the distributed ledger,
+as well as transactions that will act on these assets to change their state;
+second, designing transaction logic that operates on these assets.
+Now, as transactions are received by a Sawtooth node, they are forwarded to other nodes.
+A node is selected by a consensus model to publish a block.
+The block will contain any transactions that have been received and executed successfully.
+The block is then broadcasted to the publishing nodes.
+Each sawtooth node receives a published block and verifies that that block is valid.
+It then notifies our application of any state changes.
+By the end of this section, we'll be familiar with how to use the Javascript SDK to interact with a Sawtooth network,
+and  write code logic to create transactions holding information about physical objects.
+Now you are ready to start this section!
+
+### Video 49 - 
+
