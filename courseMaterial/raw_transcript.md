@@ -1204,5 +1204,88 @@ By the end of this section, we'll be familiar with how to use the Javascript SDK
 and  write code logic to create transactions holding information about physical objects.
 Now you are ready to start this section!
 
-### Video 49 - 
+## Chapter Summary
+
+### Video 49 - Conclusions (Arianna Groetsema)
+
+Congratulations! You've reached the end of the Hyperledger Sawtooth chapter.
+Moving forward, we hope you feel more confident with using Hyperledger Sawtooth in your own distributed ledger solution.
+We have given you a great foundation in Hyperledger Sawtooth, but stay tuned for another course that will give you a more in-depth look at this framework in the near future.
+This is Arianna signing up, and I'll see you all next time.
+
+# Chapter 9 - Introduction to Hyperledger Fabric
+
+### Video 50 - Introduction to Hyperledger Fabric (Alexandra & Arianna Groetsema)
+
+Hi, everyone! We are the content creators for the Hyperledger Fabric chapter.
+In this chapter, you will be learning about Hyperledger Fabric version 1.0, its key components, and a little bit about how it works.
+By the end of this chapter, you will be able to set up a sample Hyperledger Fabric network,
+along with a simple application using the Fabric Node.JS SDK.
+We will also be introducing chaincode, and walk you through writing a smart contract of your very own.
+Hyperledger Fabric was the first proposal to The Linux Foundation's Hyperledger Project, contributed in part by IBM.
+Version 1.0 was released just recently, in July of 2017.
+This framework is modular, scalable, secure.
+It's specifically formulated for industries such as manufacturing, agriculture, healthcare, and capital markets.
+Hyperledger Fabric is revolutionary in its ability to allow entities to conduct confidential transactions without passing through a central authority.
+Now, as you go through the chapter, if you are interested in becoming more involved with Hyperledger Fabric,
+there are many resources you can turn to, such as Rocket.Chat, which is very similar to Slack, GitHub repos, there's meet ups that you can go to, and a dedicated wiki page, as well.
+And there are many others. Those specific links you can find at the end of the chapter.
+Let's get into it.
+
+## Section 1 - Addressing Illegal, Unregulated, and Unreported Tuna Fishing (Demonstrated Scenario)
+
+### Video 51 - About the Demonstrated Scenario (Alexandra & Arianna Groetsema)
+
+Hey, everyone! I hope things are going swimmingly!
+Yeah, let's just keep swimming right through this chapter.
+Globally, three trillion dollars are spent every year on marine coastal resources and industries.
+Marine fisheries employ over 200 million people, from fishing, to processing, to shipping, and sales.
+As much as 40% of our oceans are heavily affected by human activities like illegal fishing.
+Every year, five million tons of tuna, with an estimated value of forty billion dollars, are sold.
+This is a huge industry, and one that could benefit greatly from innovation and transparency.
+With the Tuna 2020 Traceability Declaration in mind, our goal is to eliminate illegal, unreported, and unregulated fishing.
+We will use Hyperledger Fabric to bring transparency and clarity to a real-world example: the supply chain of tuna fishing.
+We will be describing how tuna fishing can be improved, starting from the source, fisherman Sarah, and the process by which her tuna ends up at Miriam's restaurant.
+In between, we'll have other parties involved, such as the regulator who verify the validity of the data and the sustainability of the tuna catches.
+We will be using Hyperledger Fabric's framework to keep track of each part of this process.
+Now, as you read through the demonstrated scenario section, there are two main ideas to pay attention to:
+1. There are many actors within the network, and you will see how these actors interact, and how a transaction is conducted.
+2. Private channels allow Sarah and Miriam to privately agree on the terms of their interaction,
+while still maintaining transparency, so other actors can corroborate and confirm their transaction.
+Using private channels, regulators and restaurateurs can confirm whether a particular shipment of tuna was sustainably and legally sourced,
+without needing to see the details of the entire journey.
+Only the fisherman and the restaurateur are privy to such specific details.
+Good luck and let's dive right on into it!
+
+## Section 2 - Key Components and Transaction Flow
+
+### Video 52 - Introduction to Hyperledger Fabric Architecture (Arianna Groetsema)
+
+Hello, everybody!
+We'll now be going over the architecture of Hyperledger Fabric.
+Hyperledger Fabric is so unique, because it allows for modular consensus and membership service.
+This means that algorithms for consensus, identity verification are plug-and-play,
+resulting in a universal blockchain architecture, that can be applied to most industries or business models.
+Channels are another unique feature.
+They allow transactions to be private between two actors, while still being verified and committed to the blockchain.
+You will also learn about the different roles within a network, how consensus is reached, and other special features.
+By the end of this section, you will understand how a transaction is performed between two actors and what exactly occurs within a network during a transaction.
+Good luck, and I'll see you in the next section!
+
+### Video 53 - Ordering Service (Chris Ferris)
+
+The ordering service is actually something that we conceived of as a function of the initial rollout of Fabric 0.6, last year,
+in the sense that... we determined that, in order to improve the performance of the consensus computation,
+that, if we separated out the ordering aspects of consensus, where typically, whether it's Bitcoin or Ethereum, the minors are determining the order of transactions in a block,
+if we instead make that in an independent service, and apply the fault tolerance to the ordering service itself,
+we can actually get a significant improvement in performance and throughput of the overall system.
+And so, we've implemented, to date, two ordering services.
+One is called SOLO - it's really a toy; I mean, it's intended to be used for development purposes, or initial testing of new functions, and so forth.
+And then, another one is based on an implementation of Kafka.
+And, over time, as we go forward, we plan on introducing various forms of fault tolerance too to that ordering service.
+And so, the initial one is going to be based on RAFT consensus, which isn't byzantine fault tolerant, but it is crash fault tolerant,
+and then, there is ongoing work on something we call Simplified Byzantine Fault Tolerance,
+and that, we should have probably in the first half of 2018.
+
+### Video 54 - 
 
