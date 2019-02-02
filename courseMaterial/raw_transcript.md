@@ -1287,5 +1287,73 @@ And so, the initial one is going to be based on RAFT consensus, which isn't byza
 and then, there is ongoing work on something we call Simplified Byzantine Fault Tolerance,
 and that, we should have probably in the first half of 2018.
 
-### Video 54 - 
+## Section 3 - Installing Hyperledger Fabric
 
+### Video 54 - Installing Hyperledger Fabric
+
+Hi everyone! In this video, we will be covering how to install Fabric and build a test network.
+Before you start, make sure that you have Go, Node.js, cURL, npm package manager, Docker, and Docker  Compose downloaded on your machine.
+Make sure to open a terminal window, because this is where we will be working in this video,
+and also, have Docker running on your machine.
+We are going to start with downloading the Hyperledger Fabric platform-specific binaries,
+and to do that, I'm going to move into my desktop directory [cd directory], which I am already in.
+But you can chose any directory that you would like to download the binaries and Docker images in.
+I'm just choosing the desktop.
+And you are going to run the following command: 'curl -sSL https://goo.gl/Q3YRTi | bash'.
+Now, depending on when you are taking this course, I'd recommend checking the Hyperledger  Fabric readthedocs page,
+and make sure under the "Download Platform-specific Binaries"
+that you use the most updated URL in that command.
+Great! So, I am going to press 'Enter', and this command might take a couple of minutes to execute,
+but be patient.
+This command downloads binaries for cryptogen, config transaction generator, and the Hyperledger Fabric Docker images that I mentioned before.
+These assets are placed in a 'bin' subdirectory of the current directory that you are in.
+Great. So, this has finished executing, and we can see the list of Hyperledger Docker images here,
+and, if we scroll up, you can see all of then being downloaded.
+You can go through that on your own time.
+But I want to just point in the direction of the tags here.
+Now, mine shows 'latest' for each of the ones, so, for 'fabric-ca', there's a 'latest' tag, the tag is 'latest'.
+So, this is what we want to see.
+But, if yours doesn't have this, there are some directions in the documentation that show you how to tag each of these with 'latest',
+because you will need that for some of the following steps.
+But, I won't need to, because it's already done for me.
+Ok.
+Next, we want to install Hyperledger Fabric, and as an additional measure,
+you may want to add the 'bin' subdirectory to your PATH environment variable.
+So, these can be picked up without needing to qualify the PATH to each binary.
+And you can do that by running the following command in the same directory you just downloaded everything: 'export PATH=$PWD/bin:$PATH'.
+Great.
+So, now we are going to install the Hyperledger Fabric sample code, which will be used in this tutorial, and that is going to be on GitHub.
+So, you'll run the following command: 'git clone'... and I am just doing that in my desktop, as well,
+'https://github.com/hyperledger/fabric-samples.git'.
+And that will download the repository to my desktop.
+So, we have that code now.
+And I am going to cd into 'fabric-samples/first-network'.
+Great. Let's just 'ls'  to see what's in here.
+Great.
+We see a lot of yaml files and a 'byfn.sh', which is good.
+And now, we're ready to start a test Hyperledger Fabric network with this code that we downloaded.
+So, in the first... make sure you're in the 'first-network' directory, or folder, and run the following command './byfn.sh -m generate'.
+A brief description will pop up, and you can just type 'y' and 'Enter' to continue,
+and you'll see the generation of certificates, and other good stuff you can go through and read this on your own if you'd like.
+But this means that this executed well.
+Next, you can start the network with the following command... in the same folder, 'first-network' again, './byfn.sh -m up'.
+Another command will come up, or another question... you can type 'y' and 'Enter' to continue.
+Now, this command might also take a little bit of time.
+But logs will appear in the command line, showing containers being launched, and other things.
+But we'll talk about that when it finishes running.
+So, this command has finished executing, with this 'END' message here.
+And we can see, as I mentioned before, there's a lot of logs that appear in the terminal,
+or in the command line, showing containers being launched, channels being created and joined,
+chaincode being installed, instantiated, and invoked on all the peers that were created,
+as well as other various transaction logs, that you can go through and read on your own.
+Now, if you had trouble with the commands, or you're not seeing something similar to what I am seeing,
+in the documentation, there is a troubleshooting note I recommend going and looking at that and trying to see if that helps you.
+So, just to finish up and shut down this network that we've tested out, 'CTRL + C', if you're on a Mac, or exit that execution and run './byfn.sh -m down'.
+Another message will pop up, press 'y' and 'Enter' to continue.
+So, this command will kill your containers, remove the crypto material that we downloaded before,
+and four artifacts, and delete the chaincode images from your Docker Registry.
+So, it won't delete the 'bin' subdirectory that you downloaded before, but it will just shut everything down and bring it down.
+And that's it for a simple demonstration.
+These steps, these simple steps show how we can easily spin up and bring down a Hyperledger Fabric network given the code we have.
+
+### Video 55 - 
