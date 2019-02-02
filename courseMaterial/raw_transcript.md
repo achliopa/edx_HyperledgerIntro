@@ -1356,4 +1356,167 @@ So, it won't delete the 'bin' subdirectory that you downloaded before, but it wi
 And that's it for a simple demonstration.
 These steps, these simple steps show how we can easily spin up and bring down a Hyperledger Fabric network given the code we have.
 
-### Video 55 - 
+## Section 5 - Writing an Application
+
+### Video 55 - Hyperledger Fabric Tuna Application (Alexandra Groetsema)
+
+So far, in this chapter, we've covered the components of Hyperledger Fabric's framework,
+including the different types of nodes in the network, private channels, and database features.
+We've also installed and spun up our very own test network, deep dived into chaincodes smart contact programming, and gone through a demonstrated example, detailing how Fabric is so unique.
+So, now, we've gotten to the really exciting part, where we combine all of these concepts into a working sample application.
+In this exercise, we'll see how a user can interact with a network through an application that enables users to query and update a ledger.
+Our application handles user interface and submits transactions to the network, which then call chaincodes.
+Fabric currently has three options for developers: a Node SDK, Java SDK and a command line interface or CLI.
+Today, we'll be using Fabric's Node SDK, which makes it easy to use APIs to interact with the Hyperledger Fabric blockchain.
+In a nutshell, reading or writing the ledger is known as a proposal.
+This proposal is built by our application via the SDK, and then sent to a blockchain peer.
+The peer will communicate to its application-specific chaincode container.
+The chaincode will run the transaction.
+If there are no issues, it will endorse the transaction and send it back to our application.
+Our application, via the SDK, will then send the endorsed proposal to the ordering service.
+The order will package many proposals from the whole network into a block, which is then broadcast to the peers in the network.
+Finally, the peer will validate the block and write it to its ledger.
+The transaction is now live.
+By the end of this exercise, we'll be familiar with how to use the Node.js SDK to interact with the network, and, therefore, a ledger,
+and understand how an application chaincode network and ledger all interact with one another.
+Let's get to work!
+
+## Section 6 - Joining the Hyperledger Fabric Community
+
+### Video 56 - The Future of Hyperledger Fabric (Chris Ferris)
+
+So, the Hyperledger [Fabric] development, obviously, has been ongoing now for about a year and a half.
+We've grown from an initial start of almost exclusively IBM developers, probably about 20 or so initially,
+to the point where we're now over 150 developers collaborating on Hyperledger Fabric, from many companies, and a lot of individuals, and, in fact, a lot of students, as well,
+and so, I think, the future is really to have a much more diverse community of ideas coming into play,
+and helping us plan out what's going on in the next release, helping us fixing bugs, helping us with improving documentation, and so forth.
+And so, I'm really excited about the prospects of having new members come and join us in this journey, in developing permissioned blockchains for the enterprise.
+And so, again, I think, it's really an important opportunity for a lot of people,
+especially as they are beginning their careers, to get involved in an open source project,
+because it can be a real launching pad to a successful career.
+
+## Chapter Summary
+
+### Video 57 - Conclusions (Alexandra Groetsema)
+
+Congratulations! You've reached the end of the Hyperledger Fabric chapter.
+We hope you feel more comfortable with Hyperledger Fabric and are interested in implementing this in your very own distributed ledger solution.
+If you would like to get more involved with this open source project, feel free to join the discussions on Rocket.Chat,
+contribute to code, and interact with the community at meetups.
+Stay tuned for another course that will give a more in-depth look at Hyperledger Fabric in the near future.
+This is Alexandra signing out! See you later!
+
+# Chapter 10 - What's Next?  
+
+### Video 58 - Hyperledger Community (Tracy Kuhrt)
+
+If you are interested in getting involved in the Hyperledger community,
+we've set up a web page that provides information about the different ways in which you can participate.
+This web page is at hyperledger.org/community.
+So, as you can see from this page, there are a number of different ways to get involved.
+The first way is through the mailing lists.
+If we click on this first link, you will be taken to a page that shows all of the mailing lists that are available for Hyperledger.
+As you can see from the list, we have mailing lists for each of the different working groups that we have within Hyperledger,
+as well as a separate mailing list for each of the projects.
+Each mailing list is archived, so that you can see past messages.
+You can self-subscribe to any of these mailing lists that you are interested in.
+So, the next item that we have is a link to the different projects that exist within Hyperledger.
+So, if we click on this, we can see a list of all of the different Hyperledger frameworks and Hyperledger tools that exist.
+Each of these projects has a separate web page, with links to source code, documentation, and other information specific to that project.
+Next, we have a number of different meetups that meet around the world.
+So, when we click on this link, we'll go to the meet up.com site.
+Here you can see that we have meetings in 32 different countries around the world, approaching 20,000 members [as of October 2017] that are participating in these different meetups.
+So, if you don't see a pin close to you, and you are interested in starting a meetup to discuss Hyperledger with those around you,
+please contact us at info@hyperledger.org, and we will help you get started.
+The next link that we have is Rocket.Chat. Rocket.Chat is an open source alternative to Slack.
+We have a number of different channels that are set up to focus on the working groups and individual projects within Hyperledger.
+You can use this search box to search for different channels related to different projects.
+So, for example, we can type in 'fabric' here, and see all of the different channels that are related to the Hyperledger Fabric project.
+We can also do the same thing for Sawtooth, and see all of the different channels related to Hyperledger Sawtooth.
+So, Rocket.Chat requires that you have a Linux Foundation ID, which is free and can be obtained at identity.linuxfoundation.org.
+So, going back to the community page, we see that the next thing that we have is a code of conduct.
+So, this code of conduct is a page that I won't read, but basically says "Be nice and respect others' opinions."
+Obviously, it has a lot more in it, so please feel free to read that.
+The next thing that we have is working groups. We will be taken to the Hyperledger wiki, which shows us the different working groups that exist.
+The first that you see on this list is the Technical Steering Committee. So, the TSC meets on a weekly basis, and provides technical governance for Hyperledger and its projects.
+The Architecture Working Group is focused on looking at the architecture across the different Hyperledger projects.
+The Requirements Working Group is developing a library of use cases for how people are using business blockchain technologies.
+The Identity Working Group is focused on identity on the blockchain, as well as the identity of entities involved in a blockchain network.
+The Performance and Scale Working Group is focused on being able to measure the performance of the different blockchain frameworks.
+The Whitepaper Working Group is writing a whitepaper that explains what Hyperledger is.
+The Healthcare Working Group is an industry-specific working group.
+We also have a technical working group located in China that meets on a bi-weekly basis at a China-friendly time.
+All of these working groups are open to anyone to join and participate.
+The next thing that we'll see here is our bug-tracking database.
+So, if we look at the bug-tracking database, we can see that we have all of the different projects captured,
+and we're using JIRA for this bug-tracking database.
+So, you can use JIRA for viewing existing bugs within the system, or to report a bug that you have found.
+The JIRA system also requires that you have a Linux Foundation ID.
+Lastly on the community page, we'll see and be taken back to the wiki.
+So, the wiki has information about the different projects, the working groups, governing documents for how we work within Hyperledger,
+and it also has information on the different ways that we communicate, which we've already talked about.
+The one interesting thing that I want to point out here is this calendar of public meetings.
+Through this page, you can get to this Google Calendar, which lists all of the different meetings that we have, and information about how you can participate in those meetings.
+Because this is an open community, all of these different meetings are open to anyone who wants to join.
+We look forward to seeing you within the Hyperledger community.
+
+### Video 59 - Hackfests (Brian Behlendorf)
+
+A Hackfest is a get-together of developers on an open source project.
+Some of them are core members, people who've been involved for a long time, others might be brand-new, they might have only heard about the project,
+and it's a pretty much an unconference, kind of very loosely structured kind of thing,
+where we talk about different topics, we talk about the state of the code, the state of the project,
+but also bring people up the learning curve, and get the kind of engagement that might happen over email, and chat, and that sort of thing,
+to happen at a much more accelerated pace,
+and finally, for people to get a chance to know each others as humans, not just as email addresses or GitHub commit IDs, right, but actually as humans.
+
+### Video 60 - Rewards and Challenges (Brian Behlendorf)
+
+What's the most challenging and rewarding aspect of your job as Executive Director of the Hyperledger project?
+So, my job as Executive Director of Hyperledger for The Linux Foundation, right,
+I work for The Linux Foundation, they cut my paycheck, that's where I'd show up for work, well, most days,
+is a lot of fun, right? I tell people it's not really Executive Director so much, as it is geek diplomat,
+because my charter is to really help build this barbell-shaped kind of community, right, of developers,
+and how do we really get them to play nice with each other, to organize their efforts so that any hour that a developer can give,
+you know, they get the most out of, right, and we get the most out of them for that hour, alright?
+And so, how do we grow that and scale that up - that's one set of those challenges.
+And so, I've got a staff focused on that.
+And then, another set of challenges are how do we get the companies to show up to the project, to start using the code, right,
+to start building a business on top of that, and how do we get some of them to join as members,
+because membership is what allows me to show up in the morning and get a paycheck, and my staff as well.
+So, we now have grown this to over 150 different member organizations,
+ranging from IBM, to the Bank of England, to Wanda in China, to a whole bunch of startups all over the world,
+and it's really fun, but it's also really challenging to figure out how do we make sure this technology can relate to those businesses and to the developers  themselves,
+and how do we make sure both communities, the participants and that, feel like they're getting something out of the investment that they're making.
+This isn't a charity, I can't depend upon selfless actions on the parts of developers, or on the parts of companies, for sure.
+We need to make sure that they feel like they're really getting something for their activity.
+So, it means a lot of travel, which is the hardest part, because I've got a two-year-old, you know, and so, I want to spend as much time at home as I can,
+and a lot of calls at 6:00 a.m. in the morning, or 9:00 p.m. at night, because we've got, you know, partners, and even staff, in Asia, and in Europe.
+So, those are some of the challenges, but it's really fun feeling like we're at the leading edge of a technology domain,
+and also really fun to think about this as somewhat the antidote to the increasing centralization of power on the Internet,
+this is a way of decentralizing markets, decentralizing information systems,
+and so, I think we're doing something that has a really deep impact and potentially a very positive social impact, as well.
+
+### Video 61 - Jonathan Levi Talks about His Hyperledger Journey
+
+So, I actually started with Hyperledger because I saw Hyperlegder Fabric being open sourced early 2016,
+and it was just something that I did for fun.
+I saw the first attempt to have a permissioned ledger,
+and in the open source world, it was their open source blockchain initiative at the time.
+I was thinking “Ok, what’s that?”
+So, we worked along with Bitcoin, we worked along with Ethereum, and I said, “Oh, I can code a little bit”.
+Then, I saw membership services, and people tried to kind of get identities, and onboard people on the blockchain, and I said “Hold on. Can I help a little bit?”
+So, I just asked people “Can I help you here? Can I help you there?” And they said “Sure, sure, sure! Thank you very much!”
+And then, after a while, they kind of… I don’t remember what was kind of the order of events, but I got nominated to be a maintainer for Hyperledger Fabric,
+and then, later on, I became the release manager of Hyperledger Fabric 1.0.
+So, it was Chris Ferris and I, we are the two official release managers.
+And, the nice thing that they see in Hyperledger today is the licensing, Apache 2.0 license allows you to commercialize stuff.
+I think we enjoy a lot of visibility, both because we contribute back, but also because we partner with very big guys.
+If you think about our size, like, what are the chances that in a normal world,
+we would be able to work with Intel and IBM at that capacity,
+working not only with the research and the labs and the initial kind of setups, but with the top guys in the business.
+This organization elected me to the TSC, Technical Steering Committee.
+I’m probably the only independent member of the TSC, and a maintainer that was a release manager...
+And what it allows me, personally, as Jonathan Levi? I don’t know. The way I look at it, we are making history.
+
+# THAT'S ALL FOLKS!

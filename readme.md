@@ -2351,3 +2351,434 @@ return shim.Error("Invalid Smart Contract function name.")
 
 }
 ```
+
+### Lecture 197 - Chaincode Methods 
+
+**queryTuna**
+
+* The *queryTuna* method would be used by a fisherman, regulator, or restaurateur to view the record of one particular tuna. It takes one argument - the key for the tuna in question.
+```
+func (s *SmartContract) queryTuna(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+
+if len(args) != 1 {
+
+return shim.Error("Incorrect number of arguments. Expecting 1")
+
+}
+
+tunaAsBytes, _ := APIstub.GetState(args[0])
+
+if tunaAsBytes == nil {
+
+return shim.Error(“Could not locate tuna”)
+
+}
+
+return shim.Success(tunaAsBytes)
+
+}
+```
+
+**initLedger**
+
+* The *initLedger* method will add test data to our network.
+```
+func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
+
+tuna := []Tuna{
+
+Tuna{Vessel: "923F", Location: "67.0006, -70.5476", Timestamp: "1504054225", Holder: "Miriam"},
+
+Tuna{Vessel: "M83T", Location: "91.2395, -49.4594", Timestamp: "1504057825", Holder: "Dave"},
+
+Tuna{Vessel: "T012", Location: "58.0148, 59.01391", Timestamp: "1493517025", Holder: "Igor"},
+
+Tuna{Vessel: "P490", Location: "-45.0945, 0.7949", Timestamp: "1496105425", Holder: "Amalea"},
+
+Tuna{Vessel: "S439", Location: "-107.6043, 19.5003", Timestamp: "1493512301", Holder: "Rafa"},
+
+Tuna{Vessel: "J205", Location: "-155.2304, -15.8723", Timestamp: "1494117101", Holder: "Shen"},
+
+Tuna{Vessel: "S22L", Location: "103.8842, 22.1277", Timestamp: "1496104301", Holder: "Leila"},
+
+Tuna{Vessel: "EI89", Location: "-132.3207, -34.0983", Timestamp: "1485066691", Holder: "Yuan"},
+
+Tuna{Vessel: "129R", Location: "153.0054, 12.6429", Timestamp: "1485153091", Holder: "Carlo"},
+
+Tuna{Vessel: "49W4", Location: "51.9435, 8.2735", Timestamp: "1487745091", Holder: "Fatima"},
+
+}
+
+i := 0
+
+for i < len(tuna) {
+
+fmt.Println("i is ", i)
+
+tunaAsBytes, _ := json.Marshal(tuna[i])
+
+APIstub.PutState(strconv.Itoa(i+1), tunaAsBytes)
+
+fmt.Println("Added", tuna[i])
+
+i = i + 1
+
+}
+
+return shim.Success(nil)
+
+}
+```
+
+**recordTuna**
+
+* The *recordTuna* method is the method a fisherman like Sarah would use to record each of her tuna catches. This method takes in five arguments (attributes to be saved in the ledger).
+```
+func (s *SmartContract) recordTuna(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+
+if len(args) != 5 {
+
+return shim.Error("Incorrect number of arguments. Expecting 5")
+
+}
+
+var tuna = Tuna{ Vessel: args[1], Location: args[2], Timestamp: args[3], Holder: args[4]}
+
+tunaAsBytes, _ := json.Marshal(tuna)
+
+err := APIstub.PutState(args[0], tunaAsBytes)
+
+if err != nil {
+
+return shim.Error(fmt.Sprintf("Failed to record tuna catch: %s", args[0]))
+
+}
+
+return shim.Success(nil)
+
+}
+```
+
+**queryAllTuna**
+
+* The *queryAllTuna* method allows for assessing all the records; in this case, all the Tuna records added to the ledger. This method does not take any arguments. It will return a JSON string containing the results.
+```
+func (s *SmartContract) queryAllTuna(APIstub shim.ChaincodeStubInterface) sc.Response {
+
+startKey := "0"
+
+endKey := "999"
+
+resultsIterator, err := APIstub.GetStateByRange(startKey, endKey)
+
+if err != nil {
+
+return shim.Error(err.Error())
+
+}
+
+defer resultsIterator.Close()
+
+// buffer is a JSON array containing QueryResults
+
+var buffer bytes.Buffer
+
+buffer.WriteString("[")
+
+bArrayMemberAlreadyWritten := false
+
+for resultsIterator.HasNext() {
+
+queryResponse, err := resultsIterator.Next()
+
+if err != nil {
+
+return shim.Error(err.Error())
+
+}
+
+// Add a comma before array members, suppress it for the first array member
+
+if bArrayMemberAlreadyWritten == true {
+
+buffer.WriteString(",")
+
+}
+
+buffer.WriteString("{\"Key\":")
+
+buffer.WriteString("\"")
+
+buffer.WriteString(queryResponse.Key)
+
+buffer.WriteString("\"")
+
+buffer.WriteString(", \"Record\":")
+
+// Record is a JSON object, so we write as-is
+
+buffer.WriteString(string(queryResponse.Value))
+
+buffer.WriteString("}")
+
+bArrayMemberAlreadyWritten = true
+
+}
+
+buffer.WriteString("]")
+
+fmt.Printf("- queryAllTuna:\n%s\n", buffer.String())
+
+return shim.Success(buffer.Bytes())
+
+}
+```
+
+**changeTunaHolder**
+
+* As the tuna fish is passed to different parties in the supply chain, the data in the world state can be updated with who has possession. The *changeTunaHolder* method takes in 2 arguments, *tuna id* and *new holder name*.
+```
+func (s *SmartContract) changeTunaHolder(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+
+if len(args) != 2 {
+
+return shim.Error("Incorrect number of arguments. Expecting 2")
+
+}
+
+tunaAsBytes, _ := APIstub.GetState(args[0])
+
+if tunaAsBytes != nil {
+
+return shim.Error("Could not locate tuna")
+
+}
+
+tuna := Tuna{}
+
+json.Unmarshal(tunaAsBytes, &tuna)
+
+// Normally check that the specified argument is a valid holder of tuna but here we are skipping this check for this example. 
+
+tuna.Holder = args[1]
+
+tunaAsBytes, _ = json.Marshal(tuna)
+
+err := APIstub.PutState(args[0], tunaAsBytes)
+
+if err != nil {
+
+return shim.Error(fmt.Sprintf("Failed to change tuna holder: %s", args[0]))
+
+}
+
+return shim.Success(nil)
+
+}
+```
+
+* To see all the code snippets, visit the [educational GitHub repository](https://github.com/hyperledger/education/blob/master/LFS171x/fabric-material/chaincode/tuna-app/tuna-chaincode.go).
+
+## Section 5 - Writing an Application
+
+### Lecture 198 - What Is a Blockchain Application?
+
+* In a blockchain application, the blockchain will store the state of the system, in addition to the immutable record of transactions that created that state. A client application will be used to send transactions to the blockchain. The smart contracts will encode some (if not all) of the business logic.
+* Applications use APIs to run smart contracts. In Hyperledger Fabric, these smart contracts are called chaincode. These contracts are hosted on the network, and identified by name and version. APIs are accessible with a software development kit, or SDK. Currently, Hyperledger Fabric has three options for developers: Node.js SDK, Java SDK, and CLI.
+
+### Lecture 199 - Fabric Node.js SDK
+
+* In this exercise, we will be using the [Node.js SDK](https://fabric-sdk-node.github.io/) to interact with the network, and, therefore, the ledger. The Hyperledger Fabric Client SDK makes it easy to use APIs to interact with a Hyperledger Fabric blockchain. This section will help you write your first application, starting with a test Hyperledger Fabric network, then learning the parameters of the sample smart contract, and lastly, developing the application to query and update ledger records.
+* For additional information, visit the [Hyperledger Fabric Node SDK  documentation](https://fabric-sdk-node.github.io/tutorial-app-dev-env-setup.html).
+
+### Lecture 200 - Hyperledger Fabric Tuna Application
+
+* The tuna application is going to demonstrate the creation and transfer of tuna fish shipments between actors leveraging Hyperledger Fabric in the supply chain.
+* The application will be written in Node.js. The chaincode that we will be using is the demonstrated scenario chaincode that we walked through in the previous section. Interacting with the chaincode is done by using the gRPC protocol to a peer on the network. The details of the gRPC protocol are taken care of by the Hyperledger Fabric Client Node.js SDK.
+
+### Lecture 201 - Getting Started
+
+* In case you haven’t downloaded the education repository for this course, follow the below directions in your terminal window:
+```
+$ git clone https://github.com/hyperledger/education.git
+$ cd education/LFS171x/fabric-material/tuna-app
+```
+* Make sure you have Docker running on your machine before you run the next command. If you do not have Docker installed, return to Chapter 4, Technical Requirements.
+* Also, make sure that you have completed the Installing Hyperledger Fabric section in this chapter before moving on to this application section, as you will likely experience errors. 
+* First, remove any pre-existing containers, as it may conflict with commands in this tutorial:
+```
+$ docker rm -f $(docker ps -aq)
+```
+* Then, let’s start the Hyperledger Fabric network with the following command:
+```
+$ ./startFabric.sh
+```
+* Troubleshooting: If, after running the above you are getting an error similar to the following:
+```
+ERROR: failed to register layer: rename
+/var/lib/docker/image/overlay2/layerdb/tmp/write-set-091347846 /var/lib/docker/image/overlay2/layerdb/sha256/9d3227c1793b7494e598caafd0a5013900e17dcdf1d7bdd31d39c82be04fcf28: file exists
+```
+* try running the following command:
+```
+$ rm -rf ~/Library/Containers/com.docker.docker/Data/*
+```
+* Install the required libraries from the package.json file, register the Admin and User components of our network, and start the client application with the following commands:
+```
+$ npm install
+$ node registerAdmin.js
+$ node registerUser.js
+$ node server.js
+```
+* Load the client simply by opening *localhost:8000* in any browser window of your choice, and you should see the user interface for our simple application at this URL (as in the screenshot below).
+* If you are getting an error similar to the one below while attempting to perform any of the functions on the application:
+```
+Error: [client-utils.js]: sendPeersProposal - Promise is rejected: Error: Connect Failed
+
+error from query =  { Error: Connect Failed
+
+   at /Desktop/prj/education/LFS171x/fabric-material/tuna-app/node_modules/grpc/src/node/src/client.js:554:15 code: 14, metadata: Metadata { _internal_repr: {} } }
+```
+* try running the following commands:
+```
+$ cd ~
+$ rm -rf .hfc-key-store/
+```
+* Then, run the commands above starting with:
+```
+$ node registerAdmin.js
+```
+
+### Lecture 202 - Query All Tuna Recorded
+
+```
+     // queryAllTuna - requires no arguments
+      const request = {
+          chaincodeId:’tuna-app’,
+          txId: tx_id,
+          fcn: 'queryAllTuna',
+          args: ['']
+          };
+      return channel.queryByChaincode(request);
+```
+* (Reference: The code comes from *..src/queryAllTuna.js*)
+* Now, let’s query our database, where there should be some sample entries already, since our chaincode smart contract initiated the ledger with 10 previous catches. This function takes no arguments, as we see on line 6. Instead, it takes an empty array.
+* The query response you should see in the user interface is 10 pre-populated entries with the attributes for each catch.
+
+### Lecture 203 - Query a Specific Tuna Recorded
+
+```
+// queryTuna - requires 1 argument
+      const request = {
+          chaincodeId:’tuna-app’,
+          txId: tx_id,
+          fcn: 'queryTuna',
+          args: ['1']
+          };
+      return channel.queryByChaincode(request);
+```
+* (Reference: The code comes from *..src/queryTuna.js*)
+* Now, let’s query for a specific tuna catch. This function takes 1 argument, as you can see on line 6 above, an example would be ['1']. In this example, we are using the key to query for catches.
+* You should see the following query response detailing the attributes recorded for one particular catch.
+
+### Lecture 204 - Change Tuna Holder
+
+```
+ // changeTunaHolder - requires 2 argument
+      var request = {
+          chaincodeId:’tuna-app’,
+          fcn: 'changeTunaHolder', 
+          args: ['1', 'Alex'],
+          chainId: 'mychannel',
+          txId: tx_id
+          };
+      return channel.sendTransactionProposal(request);
+```
+* (Reference: The code comes from *..src/changeHolder.js*)
+* Now, let’s change the name of the person in possession of a given tuna. This function takes 2 arguments: the key for the particular catch, and the new holder, as we can see on line 5 in the example above. Ex: args: ['1', 'Alex'].
+* You may be able to see a similar success response in your terminal window:
+```
+The transaction has been committed on peer localhost:7053
+ event promise all complete and testing complete
+
+Successfully sent transaction to the orderer.
+Successfully sent Proposal and received ProposalResponse: Status - 200, message - "OK", metadata - "", endorsement signature: 0D 9
+```
+* This indicates we have sent a proposal from our application via the SDK, and the peer has been endorsed, committed, and the ledger has been updated.
+* You should see that the holder has indeed been changed by querying for key ['1'] again. Now, the holder attribute has been changed from Miriam to Alex, for example.
+
+### Lecture 205 - Record a Tuna Catch
+
+```
+ // recordTuna - requires 5 argument
+      var request = {
+          chaincodeId:’tuna-app’,
+          fcn: 'recordTuna',   
+          args: ['11', '239482392', '28.012, 150.225', '0923T', "Hansel"],
+          chainId: 'mychannel',
+          txId: tx_id
+          };
+      return channel.sendTransactionProposal(request);
+```
+* (Reference: The code comes from *..src/recordTuna.js*)
+* Lastly, we will practice recording a new tuna catch, and adding it to the ledger by invoking the recordTuna function. This function takes 5 arguments, itemizing each of the attributes of a new catch. You can see an example submission on line 5: args: ['11','239482392', '28.012, 150.225', '0923T', "Hansel"].
+* Check and you should see that the holder has indeed been changed by querying all the tuna catches. Now, you should see an additional entry at the bottom of the table:
+
+### Lecture 206 - Finishing Up
+
+* Remove all Docker containers and images that we created in this tutorial with the following command in the tuna-app folder:
+```
+$ docker rm -f $(docker ps -aq)
+$ docker rmi -f $(docker images -a -q)
+```
+
+### Lecture 207 - Application Flow Basics
+
+	* A developer creates an application and smart contract.
+	* The application will invoke calls within the smart contract via the Hyperledger Fabric Client SDK.
+	* These calls are processed by the business logic within the chaincode smart contract.
+	* A put or delete command will go through the consensus process and will be added to the blockchain within the ledger.
+	* A get command can only read from the world state, but it is not recorded on the blockchain.
+	* The application can access blockchain information via APIs.
+
+### Lecture 208 - Application Flow Example
+
+	* Various users (fisherman, regulators, or restaurateurs etc.) will interact with the Node.js application.
+	* The client JS will send messages to the backend when the user interacts with the application.
+	* Reading or writing the ledger is known as a proposal (for example, querying a specific Tuna catch - queryTuna -  or recording a tuna catch - recordTuna). This proposal is built by our application via the SDK, and then sent to the endorsing peers.
+	* The endorsing peers will use the application-specific chaincode smart contract to simulate the transaction. If there are no issues, the transaction will be endorsed, and sent back to our application.
+	* Our application will then send the endorsed proposal to the ordering service via the SDK. The orderer will package many proposals from the whole network into a block. Then, it will broadcast the new block to the committing peers in the network.
+	* Finally, each committing peer will validate the block and write it to its ledger (shown in teal above). The transaction has now been committed, and any reads will reflect this change.
+
+## Section 6 - Joining the Hyperledger Fabric Community
+
+### Lecture 209 - Community Meetings and Mailing Lists
+
+* You can join the the weekly meeting on Fabric Documentation, or other Hyperledger Fabric-related meetings. The [Hyperledger Community Meetings](https://calendar.google.com/calendar/embed?src=linuxfoundation.org_nf9u64g9k9rvd9f8vp4vur23b0%40group.calendar.google.com&ctz=America/SanFrancisco) Calendar is a great resource to learn the timing for these meetings.
+
+You can join the [Hyperledger Fabric mailing lists](https://lists.hyperledger.org/mailman/listinfo/hyperledger-fabric) for technical discussions and announcements.
+
+### Lecture 211 - JIRA, Gerrit, Rocket.Chat
+
+
+* If you have a bug to report, you can submit an issue using [JIRA](https://jira.hyperledger.org/secure/Dashboard.jspa?selectPageId=10104) (you must have a Linux Foundation ID to access JIRA). You can also find and review a [list of existing issues](https://jira.hyperledger.org/browse/FAB-5491?filter=10580), and can pick one that interests you and start working on it. You can learn how to use the JIRA documentation [here](https://wiki.hyperledger.org/community/jira-navigation).
+* Gerrit is used for submitting PRs and managing code reviews and checkins. All code is [forkable and viewable](https://gerrit.hyperledger.org/r/#/admin/projects/). You can get a primer on working with Gerrit [here](https://hyperledger-fabric.readthedocs.io/en/latest/Gerrit/gerrit.html).
+* You can join the live conversations on [Rocket.Chat](https://chat.hyperledger.org/home) (which is an alternative to Slack), using your Linux Foundation ID. There are over 24 channels specific to the Hyperledger Fabric project. The [#fabric](https://chat.hyperledger.org/channel/fabric) channel is used to discuss the Hyperlerdger Fabric project. You can find a guide for these channels [here](https://wiki.hyperledger.org/community/chat_channels).
+
+# Chapter 10 - What's Next?  
+
+* The development of the Hyperledger projects is led by a diverse group of technical, open source contributors. We are always looking for help to build an open source ecosystem of business blockchain technologies. If you are interested in contributing to and learning from the community, we welcome you to [join the Hyperledger effort](https://www.hyperledger.org/community).
+
+### Lecture 212 - Joining the Hyperledger Community
+
+* You too can join the Hyperledger Community:
+	* For **developers** : Read the Hyperledger code on [GitHub](https://github.com/hyperledger/hyperledger). Join the Hyperledger discussion at[ Rocket.Chat](https://chat.hyperledger.org/home). Search for open bugs, or report a new one in the [Hyperledger’s bug database](https://jira.hyperledger.org/secure/Dashboard.jspa).
+	* For **business leaders** : For key updates from Hyperledger, join the [mailing list](https://lists.hyperledger.org/g/main). Explore all Hyperledger [business solutions](https://www.hyperledger.org/projects).
+	* For educators and community leaders ; You can start or join a [Hyperledger meetup](https://www.meetup.com/pro/hyperledger/). Development updates from Wiki can be found [here](https://wiki.hyperledger.org/).
+* The Hyperledger Community’s working groups are open to the public. Developers and tech leaders can engage with any of the Hyperledger’s open community channels at [this page](https://wiki.hyperledger.org/display/HYP/Calendar+of+Public+Meetings).
+
+### Lecture 213 - Conclusions
+
+* This concludes the "Blockchain for Business: An Introduction to Hyperledger Technologies" course! We have introduced you to the current Hyperledger frameworks and tools, we have highlighted some of the business blockchain applications, we have guided you through a more in-depth tour on some of the most mature frameworks and tools (Hyperledger Iroha, Hyperledger Indy, Hyperledger Composer, Hyperledger Sawtooth, and Hyperledger Fabric), and we also provided deep-dive tutorials for Hyperledger Indy, Hyperledger Composer, Hyperledger Sawtooth and Hyperleger Fabric.
+* We hope this course inspires you and helps you continue your journey into the business blockchain technology world. Whether you are an engineer, entrepreneur, developer, educator, or business person, we look forward to seeing what you build, as well as hearing from you in the course forum. 
+* Good luck to all of you in your future endeavors! 
+
